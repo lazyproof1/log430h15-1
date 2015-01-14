@@ -99,7 +99,8 @@ public class ResourceAssignment {
 			} else {
 				done = false;
 			} // if
-
+			
+			
 			while (!done) {
 
 				userChoice = menu.mainMenu();
@@ -150,6 +151,15 @@ public class ResourceAssignment {
 
 					break;
 
+				case '6':
+					
+					display.displayResourceList(resourceList.getListOfResources());
+					resource = menu.pickResource(resourceList.getListOfResources());
+					if (resource != null) {
+						display.displayProjectsPreviouslyAssignedToResource(resource, projectList.getListOfProjects());
+					} // if
+					break;
+					
 				case 'X':
 
 				case 'x':
