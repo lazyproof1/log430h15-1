@@ -31,6 +31,13 @@ package ca.etsmtl.log430.lab1;
  ****************************************************************************/
 
 public class Resource {
+	
+	/**
+	 * Project priority values
+	 */
+	public static final int HIGH 	= 100;
+	public static final int MED 	= 50;
+	public static final int LOW 	= 25;
 
 	/**
 	 * Resource's last name
@@ -63,14 +70,58 @@ public class Resource {
 	private ProjectList projectsAssignedList = new ProjectList();
 
 	/**
+	 *  Value of resource based on project priority
+	 */
+	private int resourceValue;
+	
+	/**
 	 * Assigns a project to a resource.
 	 * 
 	 * @param project
 	 */
 	public void assignProject(Project project) {
-
 		getProjectsAssigned().addProject(project);
-
+	}
+	
+	/**
+	 * Add resource value to project
+	 * 
+	 * @param projectAdded
+	 * @return
+	 */
+	public void addResourceValue(Project projectAdded){
+		setResourceValue(getResourceValue() + mapPriority(projectAdded.getPriority().charAt(0)));
+	}
+	
+	/**
+	 * Subtract resource value to project
+	 * 
+	 * @param projectRemoved
+	 * @return
+	 */
+	public void subResourceValue(Project projectRemoved){
+		setResourceValue(getResourceValue() - mapPriority(projectRemoved.getPriority().charAt(0)));
+	}
+	
+	/**
+	 * Returns priority value
+	 * 
+	 * @param letter
+	 * @return
+	 */
+	public int mapPriority(char letter) {
+		
+		switch (letter){
+			case 'H':
+				return HIGH;
+			case 'M':
+				return MED;
+			case 'L':
+				return LOW;
+			default:
+				return 0;
+		}
+			
 	}
 
 	public void setLastName(String lastName) {
@@ -119,6 +170,14 @@ public class Resource {
 
 	public ProjectList getProjectsAssigned() {
 		return projectsAssignedList;
+	}
+
+	public int getResourceValue() {
+		return resourceValue;
+	}
+
+	public void setResourceValue(int resourceValue) {
+		this.resourceValue = resourceValue;
 	}
 
 } // Resource class

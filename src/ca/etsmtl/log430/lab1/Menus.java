@@ -55,11 +55,11 @@ public class Menus {
 			userChoice = terminal.keyboardReadChar();
 
 			if ((userChoice != 'X') && (userChoice != 'x')
-					&& (userChoice < '1') && (userChoice != '2')
-					&& (userChoice != '3') && (userChoice < '4')
-					&& (userChoice != '5')) {
+					&& (userChoice != '1') && (userChoice != '2')
+					&& (userChoice != '3') && (userChoice != '4')
+					&& (userChoice != '5') && (userChoice != '6')) {
 
-				System.out.print("\n\n*** Invalid Choice:: " + userChoice
+				System.out.print("\n\n*** Invalid Choice: " + userChoice
 						+ " ***");
 
 			} else {
@@ -115,5 +115,19 @@ public class Menus {
 		return (project);
 
 	} // pickProject
+	
+	/*
+	 * Prompts alert message for resource project overloading.
+	 */
+	public void overloadAlert(Project selectedProject, Resource selectedResourse){
+		
+		// Alert prompt
+		System.out.print("\n\n***Cannot assign project " + selectedProject.getID() + 
+				" to resource " + selectedResourse.getID() + 
+				" due to resource project overloading ***\n");
+		
+		// 
+		
+	} // resourceOverload
 
 } // Menus

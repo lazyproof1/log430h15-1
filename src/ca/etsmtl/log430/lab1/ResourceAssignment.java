@@ -143,10 +143,33 @@ public class ResourceAssignment {
 					if (resource != null) {
 						display.displayProjectList(projectList.getListOfProjects());
 						project = menu.pickProject(projectList.getListOfProjects());
+
 						if (project != null) {
-							project.assignResource(resource);
-							resource.assignProject(project);
+							
+							// Add resource value
+							resource.addResourceValue(project);
+							
+							if (resource.getResourceValue() <= Resource.HIGH){
+								
+								project.assignResource(resource);
+								resource.assignProject(project);
+								
+							} // if
+							else {
+
+								// Subtract resource value
+								resource.subResourceValue(project);
+								
+								// Warn user about resource project overloading
+								menu.overloadAlert(project, resource);
+								
+							} // else
+							
+							// Display changes
+							display.displayProjectsAssignedToResource(resource);
+							
 						} // if
+						
 					} // if
 
 					break;
