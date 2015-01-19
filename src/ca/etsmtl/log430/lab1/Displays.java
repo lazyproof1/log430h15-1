@@ -201,7 +201,7 @@ public class Displays {
 					displayProject(completeProject);
 				}
 				else{
-					displayProject(project);	
+					System.out.println("Project "+project.getID()+" not found in the project list");;	
 				}
 				lineCheck(2);
 
