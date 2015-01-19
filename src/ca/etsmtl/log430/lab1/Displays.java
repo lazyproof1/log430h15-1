@@ -192,10 +192,12 @@ public class Displays {
 			project = resource.getPreviouslyAssignedProjectList().getNextProject();
 
 			if (project == null) {
-
 				done = true;
-
-			} else {
+			} 
+			else if(project.getID() == null || project.getID().trim().isEmpty()){
+				done = true;
+			}
+			else {
 				Project completeProject = projectList.findProjectByID(project.getID());
 				if(completeProject != null){
 					displayProject(completeProject);
