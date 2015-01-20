@@ -80,11 +80,6 @@ public class Resource {
 	 * @throws Exception 
 	 */
 	public void assignProject(Project project1) throws Exception {
-
-		Project project2;
-		
-		boolean isOverlap 	= false;
-		boolean isVerified 	= false;
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date startDate1 = formatter.parse(project1.getStartDate());
@@ -92,7 +87,11 @@ public class Resource {
 		
 		getProjectsAssigned().goToFrontOfList();
 		
-		while (!isOverlap && !isVerified) {
+		int newResourceUsage = mapPriority(project1.getPriority().charAt(0));
+		
+		Project project2;
+		
+		do {
 
 			project2 = getProjectsAssigned().getNextProject();
 
@@ -105,29 +104,22 @@ public class Resource {
 				//If inside the time lap
 				if( startDate1.before(endDate2) && endDate1.after(startDate2) ){
 					
-					//Calculate the resourceUsage for both project to see if they can fit together
-					int newResourceUsage = mapPriority(project1.getPriority().charAt(0)) 
-											+ mapPriority(project2.getPriority().charAt(0));
+					//Calculate the resourceUsage to see if they all can fit together
+					newResourceUsage +=  mapPriority(project2.getPriority().charAt(0));
 
 				     //Check if the priority will go over 100%
 					if(newResourceUsage > HIGH){
-
-						isOverlap = true;
 						throw new Exception("***Project not assigned: resource usage will go over 100%***");
-						
 					} // if
 					
 				} // if
 				
 			} // if
-			else { 
-				
-				isVerified = true;
-				getProjectsAssigned().addProject(project1);
-				
-			} // else
 			
-		} // while
+		}
+		while(project2 != null);// do while
+		
+		getProjectsAssigned().addProject(project1);
 		
 	}
 	
