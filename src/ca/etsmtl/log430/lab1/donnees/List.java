@@ -1,4 +1,4 @@
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.donnees;
 
 import java.util.Vector;
 
@@ -96,7 +96,7 @@ public class List {
 	/**
 	 * Sets vectorIndex back to zero, thereby pointing at the front of the list.
 	 */
-	void goToFrontOfList() {
+	public void goToFrontOfList() {
 
 		vectorIndex = 0;
 

@@ -1,4 +1,7 @@
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.donnees;
+
+import ca.etsmtl.log430.lab1.donnees.Project;
+import ca.etsmtl.log430.lab1.donnees.ProjectList;
 
 /**
  * This class will read from the InputFile and instantiate the Project objects

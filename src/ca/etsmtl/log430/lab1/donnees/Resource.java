@@ -1,4 +1,4 @@
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.donnees;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,10 +72,6 @@ public class Resource {
 	 */
 	private ProjectList projectsAssignedList = new ProjectList();
 
-	/**
-	 *  Value of resource based on project priority
-	 */
-	private int resourceValue;
 	
 	/**
 	 * Assigns a project to a resource.
@@ -109,10 +105,12 @@ public class Resource {
 				//If inside the time lap
 				if( startDate1.before(endDate2) && endDate1.after(startDate2) ){
 					
-					addResourceValue(project1);
+					//Calculate the resourceUsage for both project to see if they can fit together
+					int newResourceUsage = mapPriority(project1.getPriority().charAt(0)) 
+											+ mapPriority(project2.getPriority().charAt(0));
 
 				     //Check if the priority will go over 100%
-					if(getResourceValue() + mapPriority(project1.getPriority().charAt(0)) > HIGH){
+					if(newResourceUsage > HIGH){
 
 						isOverlap = true;
 						throw new Exception("***Project not assigned: resource usage will go over 100%***");
@@ -133,25 +131,6 @@ public class Resource {
 		
 	}
 	
-	/**
-	 * Add resource value to project
-	 * 
-	 * @param projectAdded
-	 * @return
-	 */
-	public void addResourceValue(Project projectAdded){
-		setResourceValue(getResourceValue() + mapPriority(projectAdded.getPriority().charAt(0)));
-	}
-	
-	/**
-	 * Subtract resource value to project
-	 * 
-	 * @param projectRemoved
-	 * @return
-	 */
-	public void subResourceValue(Project projectRemoved){
-		setResourceValue(getResourceValue() - mapPriority(projectRemoved.getPriority().charAt(0)));
-	}
 	
 	/**
 	 * Returns priority value
@@ -222,12 +201,6 @@ public class Resource {
 		return projectsAssignedList;
 	}
 
-	public int getResourceValue() {
-		return resourceValue;
-	}
 
-	public void setResourceValue(int resourceValue) {
-		this.resourceValue = resourceValue;
-	}
 
 } // Resource class

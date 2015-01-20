@@ -1,4 +1,4 @@
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.donnees;
 
 /**
  * This class is used by various other classes that need to keep a list of

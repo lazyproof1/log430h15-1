@@ -1,4 +1,10 @@
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.presentation;
+
+import ca.etsmtl.log430.lab1.donnees.Project;
+import ca.etsmtl.log430.lab1.donnees.ProjectList;
+import ca.etsmtl.log430.lab1.donnees.Resource;
+import ca.etsmtl.log430.lab1.donnees.ResourceList;
+import ca.etsmtl.log430.lab1.gestion.Termio;
 
 /**
  * This class presents the user with menus, accepts their choice, ensures their
