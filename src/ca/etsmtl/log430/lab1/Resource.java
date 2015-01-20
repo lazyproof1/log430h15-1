@@ -1,6 +1,5 @@
 package ca.etsmtl.log430.lab1;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -81,32 +80,56 @@ public class Resource {
 	/**
 	 * Assigns a project to a resource.
 	 * 
-	 * @param project
+	 * @param project1
 	 * @throws Exception 
 	 */
-	public void assignProject(Project project) throws Exception {
+	public void assignProject(Project project1) throws Exception {
+
+		Project project2;
+		
+		boolean isOverlap 	= false;
+		boolean isVerified 	= false;
+		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date startDate = formatter.parse(project.getStartDate());
-		Date endDate = formatter.parse(project.getEndDate());
+		Date startDate1 = formatter.parse(project1.getStartDate());
+		Date endDate1 = formatter.parse(project1.getEndDate());
 		
-		//Complex logic with dates manipulation :
+		getProjectsAssigned().goToFrontOfList();
 		
-		//Iterate over all assigned project to this resource
-		//For each project, check if the new project is inside the time lap
-		   //If inside the time lap
-		     //Check if the priority will go over 100%
-		       //If yes : throw the exception
-		       //else : assign the project
-		
-		//Basic logic :
-		addResourceValue(project);
-		if(getResourceValue() > HIGH){
-			subResourceValue(project);
-			throw new Exception("Resource usage will go over 100&");
-		}
-		else{
-			getProjectsAssigned().addProject(project);
-		}
+		while (!isOverlap && !isVerified) {
+
+			project2 = getProjectsAssigned().getNextProject();
+
+			if(project2 != null){
+
+				// Check if the new project is inside the time lap
+				Date startDate2 = formatter.parse(project2.getStartDate());
+				Date endDate2 = formatter.parse(project2.getEndDate());
+				
+				//If inside the time lap
+				if( startDate1.before(endDate2) && endDate1.after(startDate2) ){
+					
+					addResourceValue(project1);
+
+				     //Check if the priority will go over 100%
+					if(getResourceValue() + mapPriority(project1.getPriority().charAt(0)) > HIGH){
+
+						isOverlap = true;
+						throw new Exception("***Project not assigned: resource usage will go over 100%***");
+						
+					} // if
+					
+				} // if
+				
+			} // if
+			else { 
+				
+				isVerified = true;
+				getProjectsAssigned().addProject(project1);
+				
+			} // else
+			
+		} // while
 		
 	}
 	

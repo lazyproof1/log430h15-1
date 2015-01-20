@@ -144,17 +144,22 @@ public class ResourceAssignment {
 						display.displayProjectList(projectList.getListOfProjects());
 						project = menu.pickProject(projectList.getListOfProjects());
 						
-						if (project != null) {	
+						if (project != null) {
+							
 							try {
 								resource.assignProject(project);
-								// Display changes
-								display.displayProjectsAssignedToResource(resource);
 							} catch (Exception e) {
 								//Display the error message
 								display.displayMessage(e.getMessage());
 							}	
+
+							// Display changes
+							display.displayProjectsAssignedToResource(resource);
+							
 						} // if	
+						
 					} // if
+					
 					break;
 
 				case '6':
