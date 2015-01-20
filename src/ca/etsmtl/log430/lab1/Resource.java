@@ -1,5 +1,9 @@
 package ca.etsmtl.log430.lab1;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * This class defines the Resource object for the system. Besides the basic
  * attributes, there are two lists maintained. alreadyAssignedProjectList is a
@@ -78,9 +82,32 @@ public class Resource {
 	 * Assigns a project to a resource.
 	 * 
 	 * @param project
+	 * @throws Exception 
 	 */
-	public void assignProject(Project project) {
-		getProjectsAssigned().addProject(project);
+	public void assignProject(Project project) throws Exception {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = formatter.parse(project.getStartDate());
+		Date endDate = formatter.parse(project.getEndDate());
+		
+		//Complex logic with dates manipulation :
+		
+		//Iterate over all assigned project to this resource
+		//For each project, check if the new project is inside the time lap
+		   //If inside the time lap
+		     //Check if the priority will go over 100%
+		       //If yes : throw the exception
+		       //else : assign the project
+		
+		//Basic logic :
+		addResourceValue(project);
+		if(getResourceValue() > HIGH){
+			subResourceValue(project);
+			throw new Exception("Resource usage will go over 100&");
+		}
+		else{
+			getProjectsAssigned().addProject(project);
+		}
+		
 	}
 	
 	/**

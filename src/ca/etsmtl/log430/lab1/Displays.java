@@ -56,6 +56,14 @@ public class Displays {
 	} // LineCheck
 
 	/**
+	 * Display a simple message on the console
+	 * @param message
+	 */
+	public void displayMessage(String message){
+		System.out.println(message);
+	}
+	
+	/**
 	 * Displays a resource object's elements as follows: Resource's first name,
 	 * last name, ID number, role.
 	 * 
