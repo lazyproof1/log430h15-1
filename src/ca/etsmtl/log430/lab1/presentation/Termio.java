@@ -1,4 +1,4 @@
-package ca.etsmtl.log430.lab1.gestion;
+package ca.etsmtl.log430.lab1.presentation;
 
 import java.io.BufferedReader;
 import java.io.IOException;

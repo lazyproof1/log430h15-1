@@ -4,7 +4,6 @@ import ca.etsmtl.log430.lab1.donnees.Project;
 import ca.etsmtl.log430.lab1.donnees.ProjectList;
 import ca.etsmtl.log430.lab1.donnees.Resource;
 import ca.etsmtl.log430.lab1.donnees.ResourceList;
-import ca.etsmtl.log430.lab1.gestion.Termio;
 
 /**
  * This class displays various types of information on projects and resources

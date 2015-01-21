@@ -27,10 +27,10 @@
  * and dispatches commands at the user's request. When the program is started,
  * the resource objects are initialized from a file (<tt>resources.txt</tt> is an
  * example). The format of this file is listed in the
- * {@link ca.etsmtl.log430.lab1.ResourceReader ResourceReader} class header.
+ * {@link ca.etsmtl.log430.lab1.gestion.ResourceReader ResourceReader} class header.
  * The project objects are initialized from another file (<tt>projects.txt</tt> is
  * an example). The format of this file is listed in the
- * {@link ca.etsmtl.log430.lab1.ProjectReader ProjectReader} class header.<br><br>
+ * {@link ca.etsmtl.log430.lab1.gestion.ProjectReader ProjectReader} class header.<br><br>
  * 
  * <b>Running the program:</b><br><br>
  * 
@@ -46,4 +46,4 @@
  * @author Roger Champagne - ETS - 2002-2014
  * @version 2014-Sep-11
  */
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.donnees;

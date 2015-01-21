@@ -1,4 +1,4 @@
-package ca.etsmtl.log430.lab1.donnees;
+package ca.etsmtl.log430.lab1.gestion;
 
 import ca.etsmtl.log430.lab1.donnees.Project;
 import ca.etsmtl.log430.lab1.donnees.Resource;
