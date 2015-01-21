@@ -155,13 +155,13 @@ public class ResourceAssignment {
 							
 							try {
 								resource.assignProject(project);
+								display.displayMessage("Project "+project.getID()+" was succesfully assigned");
 							} catch (Exception e) {
 								//Display the error message
 								display.displayMessage(e.getMessage());
 							}	
 
 							// Display changes
-							display.displayMessage("Project "+project.getID()+" was succesfully assigned");
 							display.displayProjectsAssignedToResource(resource);
 							
 						} // if	
@@ -178,6 +178,13 @@ public class ResourceAssignment {
 						display.displayProjectsPreviouslyAssignedToResource(resource, projectList.getListOfProjects());
 					} // if
 					break;
+					
+				case '7':
+					display.displayProjectList(projectList.getListOfProjects());
+					project = menu.pickProject(projectList.getListOfProjects());
+					if (project != null) {
+						display.displayRoleAssignedToAProject(project, resourceList.getListOfResources(), projectList.getListOfProjects());
+					} // if
 					
 				case 'X':
 
