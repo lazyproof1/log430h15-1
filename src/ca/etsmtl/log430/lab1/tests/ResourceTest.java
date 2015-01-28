@@ -16,8 +16,7 @@ import java.util.Random;
 
 /****************************************************************************
  * This class groups all unit test on Resource.java. Since it is part of
- * the data layer, a significative amount of time were spent on creating
- * test cases.
+ * the data layer, a significative amount of test cases were made.
  * 
  * Each test case will use the following format:
  * =========================================================================
@@ -28,6 +27,9 @@ import java.util.Random;
  * 	Data out:		Modification brought on the used files.
  *	Pass/fail:		Determine if the test case is a PASS or FAIL.
  * =========================================================================
+ * 
+ * Summary of each test case:
+ * 
  * 
  ****************************************************************************/
 public class ResourceTest {
@@ -77,7 +79,7 @@ public class ResourceTest {
 	 * @throws Exception
 	 ****************************************************************************/
 	@Test
-	public void test1AssignProject() throws Exception {
+	public void testOneAssignProject() throws Exception {
 
 		do{
 
@@ -131,6 +133,7 @@ public class ResourceTest {
 				// Add project P001 to every resources
 				testResource.assignProject(projectListTest.findProjectByID("P001"));
 				
+				// Add four project ID P003
 				for (int i = 0; i < 4; i ++){
 					testResource.assignProject(projectListTest.findProjectByID("P003"));
 				}
@@ -138,7 +141,7 @@ public class ResourceTest {
 				// Verify that the project P003 has been added to the resource's project list
 				assertNotNull(testResource.getProjectsAssigned().findProjectByID("P003"));
 				
-				// Adding a fifth project P003 will return an exception
+				// Adding a fifth project ID P003 will return an exception
 				try{
 					testResource.assignProject(projectListTest.findProjectByID("P003"));
 				} catch (Exception e) {
@@ -182,8 +185,24 @@ public class ResourceTest {
 				try{
 					testResource.assignProject(projectListTest.findProjectByID("P001"));
 				} catch (Exception e) {
-					System.out.println("Test case 3 - " + testResource.getID() + ": " + e.toString());
+					System.out.println("Test case 3.1 - " + testResource.getID() + ": " + e.toString());
 				}
+
+				// Add four project ID P003
+				for (int i = 0; i < 4; i ++){
+					testResource.assignProject(projectListTest.findProjectByID("P003"));
+				}
+			
+				// Verify that the project P003 has been added to the resource's project list
+				assertNotNull(testResource.getProjectsAssigned().findProjectByID("P003"));
+				
+				// Adding a fifth project ID P003 will return an exception
+				try{
+					testResource.assignProject(projectListTest.findProjectByID("P003"));
+				} catch (Exception e) {
+					System.out.println("Test case 3.2 - " + testResource.getID() + ": " + e.toString());
+				}
+				
 			}
 
 		} while (testResource != null);
