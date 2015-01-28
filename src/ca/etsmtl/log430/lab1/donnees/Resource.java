@@ -36,7 +36,7 @@ import java.util.Date;
 public class Resource {
 	
 	/**
-	 * Project priority values
+	 * Project priority percentage values
 	 */
 	public static final int HIGH 	= 100;
 	public static final int MED 	= 50;
@@ -73,26 +73,31 @@ public class Resource {
 	private ProjectList projectsAssignedList = new ProjectList();
 
 	
-	/**
+	/****************************************************************************
 	 * Assigns a project to a resource.
 	 * 
 	 * @param project1
 	 * @throws Exception 
-	 */
+	 ****************************************************************************/
 	public void assignProject(Project project1) throws Exception {
 		
+		// Specify date format in order to parse project date information
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date startDate1 = formatter.parse(project1.getStartDate());
 		Date endDate1 = formatter.parse(project1.getEndDate());
 		
+		// Start with the first item in project list
 		getProjectsAssigned().goToFrontOfList();
 		
+		// Detect project's priority value
 		int newResourceUsage = mapPriority(project1.getPriority().charAt(0));
 		
+		// Variable for project to compare
 		Project project2;
 		
 		do {
 
+			// Assign projects to compare
 			project2 = getProjectsAssigned().getNextProject();
 
 			if(project2 != null){
@@ -116,22 +121,22 @@ public class Resource {
 				
 			} // if
 			
-		}
-		while(project2 != null);// do while
+		} while(project2 != null); // do while
 		
 		getProjectsAssigned().addProject(project1);
 		
-	}
+	} // assignProject
 	
 	
-	/**
-	 * Returns priority value
+	/****************************************************************************
+	 * Check priority character and returns corresponding priority value.
 	 * 
-	 * @param letter
-	 * @return
-	 */
+	 * @param letter 	Priority character
+	 * @return			Value of character
+	 ****************************************************************************/
 	public int mapPriority(char letter) {
 		
+		// Check character
 		switch (letter){
 			case 'H':
 				return HIGH;
@@ -140,10 +145,11 @@ public class Resource {
 			case 'L':
 				return LOW;
 			default:
+				// For everything else, return 0
 				return 0;
-		}
+		} // switch
 			
-	}
+	} // mapPriority
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -192,7 +198,5 @@ public class Resource {
 	public ProjectList getProjectsAssigned() {
 		return projectsAssignedList;
 	}
-
-
 
 } // Resource class

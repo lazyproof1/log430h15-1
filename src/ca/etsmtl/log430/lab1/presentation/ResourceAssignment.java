@@ -142,16 +142,22 @@ public class ResourceAssignment {
 
 				case '5':
 
+					// Display the list of resources and awaiting user input
 					display.displayResourceList(resourceList.getListOfResources());
 					resource = menu.pickResource(resourceList.getListOfResources());
 
+					// If requested resource has been found
 					if (resource != null) {
+						
+						// Show list of projects
 						display.displayProjectList(projectList.getListOfProjects());
 						project = menu.pickProject(projectList.getListOfProjects());
-						
+
+						// If requested project exist
 						if (project != null) {
 							
 							try {
+								// Assign project to resource and confirm changes
 								resource.assignProject(project);
 								display.displayMessage("Project "+project.getID()+" was succesfully assigned");
 							} catch (Exception e) {
@@ -169,19 +175,32 @@ public class ResourceAssignment {
 					break;
 
 				case '6':
-					
+
+					// Display the list of resources and awaiting user input
 					display.displayResourceList(resourceList.getListOfResources());
 					resource = menu.pickResource(resourceList.getListOfResources());
+
+					// If requested resource has been found
 					if (resource != null) {
+						
+						// Display previously assigned project(s) from requested resource
 						display.displayProjectsPreviouslyAssignedToResource(resource, projectList.getListOfProjects());
+						
 					} // if
 					break;
 					
 				case '7':
+
+					// Display the list of resources and awaiting user input
 					display.displayProjectList(projectList.getListOfProjects());
 					project = menu.pickProject(projectList.getListOfProjects());
+
+					// If requested project has been found
 					if (project != null) {
+					
+						// Display role(s) previously and currently assigned to requested project
 						display.displayRoleAssignedToAProject(project, resourceList.getListOfResources(), projectList.getListOfProjects());
+						
 					} // if
 					
 				case 'X':
