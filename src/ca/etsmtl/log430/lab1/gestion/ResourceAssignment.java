@@ -1,9 +1,9 @@
-package ca.etsmtl.log430.lab1.presentation;
+package ca.etsmtl.log430.lab1.gestion;
 
 import ca.etsmtl.log430.lab1.donnees.Project;
 import ca.etsmtl.log430.lab1.donnees.Resource;
-import ca.etsmtl.log430.lab1.gestion.ProjectReader;
-import ca.etsmtl.log430.lab1.gestion.ResourceReader;
+import ca.etsmtl.log430.lab1.presentation.Displays;
+import ca.etsmtl.log430.lab1.presentation.Menus;
 
 /**
  * Main class for assignment 1 for LOG430, Architecture logicielle.
@@ -202,6 +202,7 @@ public class ResourceAssignment {
 						display.displayRoleAssignedToAProject(project, resourceList.getListOfResources(), projectList.getListOfProjects());
 						
 					} // if
+					break;
 					
 				case 'X':
 

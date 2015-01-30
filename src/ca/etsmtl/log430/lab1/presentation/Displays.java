@@ -180,9 +180,11 @@ public class Displays {
 	}
 
 	public void displayRoleAssignedToAProject(Project project,ResourceList resourceList,ProjectList projectList){
-		boolean done1;
-		boolean done2;
+		boolean doneResource;
+		boolean doneResourceProjectList;
 		Resource resource;
+		
+		resourceList.goToFrontOfList();
 		
 		System.out.println("\nRoles assigned to project : " + project.getID());
 		lineCheck(2);
@@ -190,40 +192,43 @@ public class Displays {
 				.println("========================================================= ");
 		lineCheck(1);
 		
-		done1 = false;
-		done2 = false;
+		doneResource = false;
+		doneResourceProjectList = false;
 		
-		while(!done1){
+		while(!doneResource){
+			
 			resource = resourceList.getNextResource();
 			
 			if (resource == null){
-				done1=true;
+				doneResource=true;
 			}
-			
-			while (!done2) {
+			else{
+				resource.getPreviouslyAssignedProjectList().goToFrontOfList();
+				while (!doneResourceProjectList) {
 
-				Project projectCurrent = resource.getPreviouslyAssignedProjectList().getNextProject();
+					Project projectCurrent = resource.getPreviouslyAssignedProjectList().getNextProject();
 
-				if (projectCurrent == null) {
-					done2 = true;
-				} 
-				else if(projectCurrent.getID() == null || projectCurrent.getID().trim().isEmpty()){
-					done2 = true;
-				}
-				else {
-					Project completeProject = projectList.findProjectByID(project.getID());
-					if(completeProject != null && projectCurrent.getID()==project.getID() ){
-						System.out.println(resource.getRole());
+					if (projectCurrent == null) {
+						doneResourceProjectList = true;
+					} 
+					else if(projectCurrent.getID() == null || projectCurrent.getID().trim().isEmpty()){
+						doneResourceProjectList = true;
 					}
-					else{
-						System.out.println("Project "+project.getID()+" not found in the project list");;	
+					else {
+						Project completeProject = projectList.findProjectByID(project.getID());
+						if(completeProject != null && projectCurrent.getID().equals(project.getID()))
+						{
+								System.out.println(resource.getRole());
+						}  // if
+						
+						lineCheck(2);
+
 					}
-					lineCheck(2);
+					
 
-				} // if
-
-			} // while
-			done2=false;
+				} // while
+				doneResourceProjectList = false;
+			}	
 			
 		}//while
 	}
