@@ -179,9 +179,10 @@ public class Displays {
 
 	}
 
-	public void displayRoleAssignedToAProject(Project project,ResourceList resourceList,ProjectList projectList){
+	public void displayRoleAssignedToAProject(Project project,ResourceList resourceList){
 		boolean doneResource;
 		boolean doneResourceProjectList;
+		boolean done;
 		Resource resource;
 		
 		resourceList.goToFrontOfList();
@@ -194,16 +195,45 @@ public class Displays {
 		
 		doneResource = false;
 		doneResourceProjectList = false;
+		project.getResourcesAssigned().goToFrontOfList();
+		
+		done = false;
+		
+		System.out.println("Roles assigned during the current execution : ");
+		lineCheck(2);
+		
+		while (!done) {
+
+			resource = project.getResourcesAssigned().getNextResource();
+
+			if (resource == null) {
+
+				done = true;
+
+			} else{
+
+				System.out.println(resource.getRole());
+
+			} // if
+
+		} // while
+		
+		lineCheck(2);
+		System.out.println("Roles assigned before the current execution : ");
+		lineCheck(2);
 		
 		while(!doneResource){
 			
 			resource = resourceList.getNextResource();
 			
+			
 			if (resource == null){
 				doneResource=true;
 			}
 			else{
+				
 				resource.getPreviouslyAssignedProjectList().goToFrontOfList();
+				
 				while (!doneResourceProjectList) {
 
 					Project projectCurrent = resource.getPreviouslyAssignedProjectList().getNextProject();
@@ -215,8 +245,8 @@ public class Displays {
 						doneResourceProjectList = true;
 					}
 					else {
-						Project completeProject = projectList.findProjectByID(project.getID());
-						if(completeProject != null && projectCurrent.getID().equals(project.getID()))
+
+						if(projectCurrent.getID().equals(project.getID()))
 						{
 								System.out.println(resource.getRole());
 						}  // if

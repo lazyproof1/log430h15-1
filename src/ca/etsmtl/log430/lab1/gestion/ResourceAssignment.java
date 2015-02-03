@@ -199,7 +199,7 @@ public class ResourceAssignment {
 					if (project != null) {
 					
 						// Display role(s) previously and currently assigned to requested project
-						display.displayRoleAssignedToAProject(project, resourceList.getListOfResources(), projectList.getListOfProjects());
+						display.displayRoleAssignedToAProject(project, resourceList.getListOfResources());
 						
 					} // if
 					break;
