@@ -114,7 +114,12 @@ public class Resource {
 
 				     //Check if the priority will go over 100%
 					if(newResourceUsage > HIGH){
-						throw new Exception("***Project not assigned: resource usage will go over 100%***");
+						throw new Exception(	
+								"***Project " + 
+								project1.getID() + 
+								" not assigned since it is overlapping with " +
+								project2.getID() +
+								": resource usage will go over 100%***");
 					} // if
 					
 				} // if

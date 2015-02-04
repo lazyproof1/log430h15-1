@@ -161,13 +161,14 @@ public class ResourceAssignment {
 								resource.assignProject(project);
 								project.assignResource(resource);
 								display.displayMessage("Project "+project.getID()+" was succesfully assigned");
+
+								// Display changes
+								display.displayProjectsAssignedToResource(resource);
+								
 							} catch (Exception e) {
 								//Display the error message
 								display.displayMessage(e.getMessage());
 							}	
-
-							// Display changes
-							display.displayProjectsAssignedToResource(resource);
 							
 						} // if	
 						

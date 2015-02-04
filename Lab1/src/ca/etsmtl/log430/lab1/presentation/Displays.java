@@ -180,6 +180,12 @@ public class Displays {
 	}
 
 	public void displayRoleAssignedToAProject(Project project,ResourceList resourceList){
+		int ana = 0;
+		int des = 0;
+		int tst = 0;
+		int prg = 0;
+		
+		
 		
 		System.out.println("\nRoles assigned to project : " + project.getID());
 		lineCheck(2);
@@ -202,20 +208,75 @@ public class Displays {
 			if (resource != null) {
 				
 				if(resource.getPreviouslyAssignedProjectList().findProject(project)){
-					displayMessage(resource.getRole());
+					switch(resource.getRole()){
+					case "ANA" :
+						ana++;
+						break;
+					case "DES" :
+						des++;
+						break;
+					case "PRG" :
+						prg++;
+						break;
+					case "TST" :
+						tst++;
+						break;
+					}
 				}
-				if(resource.getProjectsAssigned().findProject(project)){
-					displayMessage(resource.getRole());
-				}
-				
+			} else {	
+				done = true;
+			} // if
 
+		} // while)
+		System.out.println("Roles assigned previously to the project : ");
+		lineCheck(2);
+		System.out
+				.println("------------------------------------------------------------- ");
+		System.out.println("ANA : " + ana +
+							"\nDES : " + des +
+							"\nPRG : " + prg +
+							"\nTST : "+ tst);
+		
+		resourceList.goToFrontOfList();
+		done = false;
+		while (!done) {
+
+			resource = resourceList.getNextResource();
+
+			if (resource != null) {
+				
+				if(resource.getProjectsAssigned().findProject(project)){
+					switch(resource.getRole()){
+					case "ANA" :
+						ana++;
+						break;
+					case "DES" :
+						des++;
+						break;
+					case "PRG" :
+						prg++;
+						break;
+					case "TST" :
+						tst++;
+						break;
+					}
+				}
 			} else {	
 				done = true;
 			} // if
 
 		} // while)
 		
+		System.out.println("Roles assigned currently to the project : ");
+		lineCheck(2);
+		System.out
+				.println("------------------------------------------------------------- ");
+		System.out.println("ANA : " + ana +
+							"\nDES : " + des +
+							"\nPRG : " + prg +
+							"\nTST : "+ tst);
 		
+	
 	}
 	
 	/**
