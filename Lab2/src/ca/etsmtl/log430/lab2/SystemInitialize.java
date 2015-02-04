@@ -1,5 +1,10 @@
 package ca.etsmtl.log430.lab2;
 
+import ca.etsmtl.log430.lab2.sharedData.ListProjects;
+import ca.etsmtl.log430.lab2.sharedData.ListProjectsAssignedToResource;
+import ca.etsmtl.log430.lab2.sharedData.ListResources;
+import ca.etsmtl.log430.lab2.sharedData.ListResourcesAssignedToProject;
+
 /**
  * Initializes the system. First each component is instantiated. This is where
  * the component name and an ID is assigned. Then, the executive component is

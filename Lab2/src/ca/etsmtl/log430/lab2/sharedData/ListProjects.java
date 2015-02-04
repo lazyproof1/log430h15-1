@@ -1,24 +1,24 @@
-package ca.etsmtl.log430.lab2;
+package ca.etsmtl.log430.lab2.sharedData;
 
 import java.util.Observable;
 
 import ca.etsmtl.log430.common.Displays;
+import ca.etsmtl.log430.lab2.CommonData;
+import ca.etsmtl.log430.lab2.Communication;
 
 /**
- * Upon notification, lists the resources that were read into the vector stored
- * in the CommonData class.
+ * Upon notification, lists the projects that were read into the vector stored in
+ * the CommonData class.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.5, 2013-Oct-06
+ * @version 1.4, 2013-Oct-06
  */
 
 /*
  * Modification Log **********************************************************
- * v1.5, R. Champagne, 2013-Oct-06 - Various refactorings for new lab.
+ * v1.4, R. Champagne, 2013-Oct-06 - Various refactorings for new lab.
  * 
- * v1.4, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
- * 
- * v1.3, R. Champagne, 2012-Feb-14 - Various refactorings for new lab.
+ * v1.3, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
  * 
  * v1.2, R. Champagne, 2011-Feb-24 - Various refactorings, conversion of
  * comments to javadoc format.
@@ -29,17 +29,17 @@ import ca.etsmtl.log430.common.Displays;
  * ***************************************************************************
  */
 
-public class ListResources extends Communication {
+public class ListProjects extends Communication {
 
-	public ListResources(Integer registrationNumber, String componentName) {
+	public ListProjects(Integer registrationNumber, String componentName) {
 		super(registrationNumber, componentName);
 	}
 
 	/**
 	 * The update() method is an abstract method that is called whenever the
-	 * notifyObservers() method is called by the Observable class. First we
-	 * check to see if the NotificationNumber is equal to this thread's
-	 * RegistrationNumber. If it is, then we execute.
+	 * notifyObservers() method is called by the Observable class First we check
+	 * to see if the NotificationNumber is equal to this thread's
+	 * RegistrationNumber. If they are, then we execute.
 	 * 
 	 * @see ca.etsmtl.log430.lab2.Communication#update(java.util.Observable,
 	 *      java.lang.Object)
@@ -48,8 +48,8 @@ public class ListResources extends Communication {
 
 		if (registrationNumber.compareTo((Integer) notificationNumber) == 0) {
 			Displays display = new Displays();
-			display.displayResourceList(CommonData.theListOfResources
-					.getListOfResources());
+			display.displayProjectList(CommonData.theListOfProjects
+					.getListOfProjects());
 		}
 	}
 }

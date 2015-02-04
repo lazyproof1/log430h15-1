@@ -1,14 +1,17 @@
-package ca.etsmtl.log430.lab2;
+package ca.etsmtl.log430.lab2.sharedData;
 
 import java.util.Observable;
 
 import ca.etsmtl.log430.common.Displays;
 import ca.etsmtl.log430.common.Menus;
-import ca.etsmtl.log430.common.Project;
+import ca.etsmtl.log430.common.Resource;
+import ca.etsmtl.log430.lab2.CommonData;
+import ca.etsmtl.log430.lab2.Communication;
 
 /**
- * Upon notification, the user is prompted to enter a project ID.
- * Resources assigned to the project are then listed.
+ * Upon notification, first lists the resources and asks the user to pick one by
+ * specifying its ID. If the resource's ID is valid, then the projects assigned
+ * to that resource are listed.
  * 
  * @author A.J. Lattanze, CMU
  * @version 1.5, 2013-Oct-06
@@ -31,9 +34,9 @@ import ca.etsmtl.log430.common.Project;
  * ***************************************************************************
  */
 
-public class ListResourcesAssignedToProject extends Communication {
+public class ListProjectsAssignedToResource extends Communication {
 
-	public ListResourcesAssignedToProject(Integer registrationNumber,
+	public ListProjectsAssignedToResource(Integer registrationNumber,
 			String componentName) {
 		super(registrationNumber, componentName);
 	}
@@ -50,26 +53,28 @@ public class ListResourcesAssignedToProject extends Communication {
 	public void update(Observable thing, Object notificationNumber) {
 		Menus menu = new Menus();
 		Displays display = new Displays();
-		Project myProject = new Project();
+		Resource myResource = new Resource();
 
 		if (registrationNumber.compareTo((Integer) notificationNumber) == 0) {
-			addToReceiverList("ListProjectsComponent");
-			signalReceivers("ListProjectsComponent");
+			/*
+			 * First we use a Displays object to list all of the resources. Then
+			 * we ask the user to pick a resource using a Menus object.
+			 */
+			addToReceiverList("ListResourcesComponent");
+			signalReceivers("ListResourcesComponent");
+			myResource = menu.pickResource(CommonData.theListOfResources
+					.getListOfResources());
 
-			// Next we ask them to pick a project
-			myProject = menu.pickProject(CommonData.theListOfProjects
-					.getListOfProjects());
-
-			if (myProject != null) {
-				/*
-				 * If the project is valid (exists in the list), then we display
-				 * the resources that are assigned to it.
-				 */
-				display.displayResourcesAssignedToProject(myProject);
+			/*
+			 * If the user selected an invalid resource, then a message is
+			 * printed to the terminal.
+			 */
+			if (myResource != null) {
+				display.displayProjectsAssignedToResource(myResource);
 			} else {
-				System.out.println("\n\n *** Project not found ***");
+				System.out.println("\n\n *** Resource not found ***");
 			}
 		}
-		removeFromReceiverList("ListProjectsComponent");
+		removeFromReceiverList("ListResourcesComponent");
 	}
 }

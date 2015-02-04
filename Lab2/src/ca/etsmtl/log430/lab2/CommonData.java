@@ -38,10 +38,10 @@ public class CommonData {
 	private static boolean initialized = false;
 
 	/** Object that reads the projects from a file. */
-	static ProjectReader theListOfProjects;
+	public static ProjectReader theListOfProjects;
 
 	/** Object that reads the resources from a file. */
-	static ResourceReader theListOfResources;
+	public static ResourceReader theListOfResources;
 
 	/** A list of components */
 	private static ComponentList systemComponents;
