@@ -75,7 +75,7 @@ public class ResourceTest {
 	 * @throws Exception
 	 ****************************************************************************/
 	@Test
-	public void testOneAssignProject() throws Exception {
+	public void assignProjectOverload() {
 
 		do{
 
@@ -85,17 +85,20 @@ public class ResourceTest {
 			if(testResource != null){
 				
 				// Add project P001 to every resources
-				testResource.assignProject(projectListTest.findProjectByID("P001"));
+				try {
+					testResource.assignProject(projectListTest.findProjectByID("P001"));
+				} catch (Exception e1) {
+					fail();
+				}
 				
 				// Adding project P002 will return an exception
 				testProject = projectListTest.findProjectByID("P002");
+				
+			
 				try{
 					testResource.assignProject(testProject);
 				} catch (Exception e) {
-					System.out.println("Test case 1.1 - " 
-							+ testResource.getID() + " -> " 
-							+ testProject.getID() + ": "
-							+ e.toString());
+					// Verified
 				} // try/catch
 				
 				// Verify that the project P002 has not been added to the 
@@ -105,7 +108,11 @@ public class ResourceTest {
 				// Add four project ID P003
 				testProject = projectListTest.findProjectByID("P003");
 				for (int i = 0; i < 4; i ++){
-					testResource.assignProject(testProject);
+					try {
+						testResource.assignProject(testProject);
+					} catch (Exception e) {
+						fail();
+					}
 				}
 			
 				// Verify that the project P003 has been added to the resource's project list
@@ -115,17 +122,14 @@ public class ResourceTest {
 				try{
 					testResource.assignProject(testProject);
 				} catch (Exception e) {
-					System.out.println("Test case 1.2 - " 
-							+ testResource.getID() + " -> " 
-							+ testProject.getID() + ": "
-							+ e.toString());				
+					// Verified			
 				} // try/catch
 				
 			} // if
 
 		} while (testResource != null);
 		
-	} // testOneAssignProject
+	} // assignProjectOverload
 
 	/****************************************************************************
 	 * Test the AssignProject() method within the data layer.
@@ -144,7 +148,7 @@ public class ResourceTest {
 	 * @throws Exception
 	 ****************************************************************************/
 	@Test
-	public void testTwoAssignProject() throws Exception {
+	public void assignProjectOverloadIndividual() {
 
 		do{
 
@@ -156,7 +160,11 @@ public class ResourceTest {
 				// Add two project ID P002
 				testProject = projectListTest.findProjectByID("P002");
 				for (int i = 0; i < 2; i ++){
-					testResource.assignProject(testProject);
+					try {
+						testResource.assignProject(testProject);
+					} catch (Exception e) {
+						fail();
+					}
 				}
 			
 				// Verify that the project P002 has been added to the resource's project list
@@ -166,15 +174,17 @@ public class ResourceTest {
 				try{
 					testResource.assignProject(testProject);
 				} catch (Exception e) {
-					System.out.println("Test case 2.1 - " 
-							+ testResource.getID() + " -> " 
-							+ testProject.getID() + ": "
-							+ e.toString());				}
+					// Verified				
+				}
 				
 				// Add four project ID P003
 				testProject = projectListTest.findProjectByID("P003");
 				for (int i = 0; i < 4; i ++){
-					testResource.assignProject(testProject);
+					try {
+						testResource.assignProject(testProject);
+					} catch (Exception e) {
+						fail();
+					}
 				}
 			
 				// Verify that the project P003 has been added to the resource's project list
@@ -184,10 +194,7 @@ public class ResourceTest {
 				try{
 					testResource.assignProject(testProject);
 				} catch (Exception e) {
-					System.out.println("Test case 2.2 - " 
-							+ testResource.getID() + " -> " 
-							+ testProject.getID() + ": "
-							+ e.toString());				
+					// Verified			
 				} // try/catch
 				
 				// Adding one project ID P001 will return an exception
@@ -195,10 +202,7 @@ public class ResourceTest {
 				try{
 					testResource.assignProject(testProject);
 				} catch (Exception e) {
-					System.out.println("Test case 2.3 - " 
-							+ testResource.getID() + " -> " 
-							+ testProject.getID() + ": "
-							+ e.toString());				
+					// Verified			
 				} // try/catch
 				
 				// Verify that the project P001 has not been added to the 
@@ -209,7 +213,7 @@ public class ResourceTest {
 
 		} while (testResource != null);
 		
-	} // testTwoAssignProject
+	} // assignProjectOverloadIndividual
 	
 	/****************************************************************************
 	 * Test the AssignProject() method within the data layer.
@@ -229,7 +233,7 @@ public class ResourceTest {
 	 * @throws Exception
 	 ****************************************************************************/
 	@Test
-	public void testThreeAssignProject() throws Exception {
+	public void assignOverloadOverlapOnly() {
 
 		do{
 
@@ -238,15 +242,21 @@ public class ResourceTest {
 			
 			if(testResource != null){
 				
-				// Add project P002 to every resources
-				testResource.assignProject(projectListTest.findProjectByID("P002"));
+				try {
 
-				// Project P034 overlaps with P002
-				testResource.assignProject(projectListTest.findProjectByID("P034"));
-		
-				// Project P035 overlaps with both P002 and P034
-				testResource.assignProject(projectListTest.findProjectByID("P035"));
-				
+					// Add project P002 to every resources
+					testResource.assignProject(projectListTest.findProjectByID("P002"));
+
+					// Project P034 overlaps with P002
+					testResource.assignProject(projectListTest.findProjectByID("P034"));
+			
+					// Project P035 overlaps with both P002 and P034
+					testResource.assignProject(projectListTest.findProjectByID("P035"));
+					
+				} catch (Exception e) {
+					fail();
+				}
+
 				// Verify that the all projects mentionned in TC has been added 
 				// to the resource's project list
 				assertNotNull(testResource.getProjectsAssigned().findProjectByID("P002"));
@@ -257,7 +267,7 @@ public class ResourceTest {
 
 		} while (testResource != null);
 		
-	} // testThreeAssignProject
+	} // assignOverloadOverlapOnly
 	
 	/****************************************************************************
 	 * Test the AssignProject() method within the data layer.
@@ -278,7 +288,7 @@ public class ResourceTest {
 	 * @throws Exception
 	 ****************************************************************************/
 	@Test
-	public void testFourAssignProject() throws Exception {
+	public void assignProjectOverlapOthers() {
 
 		do{
 
@@ -287,21 +297,24 @@ public class ResourceTest {
 			
 			if(testResource != null){
 				
-				// Add project P047 to every resources
-				testResource.assignProject(projectListTest.findProjectByID("P047"));
+				try {
 
-				// Project P048 does not overlap with P047
-				testResource.assignProject(projectListTest.findProjectByID("P048"));
-				
+					// Add project P047 to every resources
+					testResource.assignProject(projectListTest.findProjectByID("P047"));
+
+					// Project P048 does not overlap with P047
+					testResource.assignProject(projectListTest.findProjectByID("P048"));
+					
+				} catch (Exception e1) {
+					fail();
+				}
+
 				// Project P049 overlaps with both P047 and P048
 				testProject = projectListTest.findProjectByID("P049");
 				try{
 					testResource.assignProject(testProject);
 				} catch (Exception e) {
-					System.out.println("Test case 4 - " 
-							+ testResource.getID() + " -> " 
-							+ testProject.getID() + ": "
-							+ e.toString());				
+					// Verified
 				} // try/catch
 
 				// Verify that the project P049 has not been added
@@ -315,7 +328,7 @@ public class ResourceTest {
 
 		} while (testResource != null);
 		
-	} // testFourAssignProject
+	} // assignProjectOverlapOthers
 	
 	/****************************************************************************
 	 * Test the MapPriority() method within the data layer.

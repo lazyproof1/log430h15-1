@@ -180,12 +180,6 @@ public class Displays {
 	}
 
 	public void displayRoleAssignedToAProject(Project project,ResourceList resourceList){
-		boolean doneResource;
-		boolean doneResourceProjectList;
-		boolean done;
-		Resource resource;
-		
-		resourceList.goToFrontOfList();
 		
 		System.out.println("\nRoles assigned to project : " + project.getID());
 		lineCheck(2);
@@ -193,74 +187,35 @@ public class Displays {
 				.println("========================================================= ");
 		lineCheck(1);
 		
-		doneResource = false;
-		doneResourceProjectList = false;
-		project.getResourcesAssigned().goToFrontOfList();
+		//Iterate over resources
+			//if resource has this project
+				//display roles
 		
-		done = false;
-		
-		System.out.println("Roles assigned during the current execution : ");
-		lineCheck(2);
-		
+		resourceList.goToFrontOfList();
+		Resource resource;
+		boolean done = false;
+
 		while (!done) {
 
-			resource = project.getResourcesAssigned().getNextResource();
+			resource = resourceList.getNextResource();
 
-			if (resource == null) {
+			if (resource != null) {
+				
+				if(resource.getPreviouslyAssignedProjectList().findProject(project)){
+					displayMessage(resource.getRole());
+				}
+				if(resource.getProjectsAssigned().findProject(project)){
+					displayMessage(resource.getRole());
+				}
+				
 
+			} else {	
 				done = true;
-
-			} else{
-
-				System.out.println(resource.getRole());
-
 			} // if
 
-		} // while
+		} // while)
 		
-		lineCheck(2);
-		System.out.println("Roles assigned before the current execution : ");
-		lineCheck(2);
 		
-		while(!doneResource){
-			
-			resource = resourceList.getNextResource();
-			
-			
-			if (resource == null){
-				doneResource=true;
-			}
-			else{
-				
-				resource.getPreviouslyAssignedProjectList().goToFrontOfList();
-				
-				while (!doneResourceProjectList) {
-
-					Project projectCurrent = resource.getPreviouslyAssignedProjectList().getNextProject();
-
-					if (projectCurrent == null) {
-						doneResourceProjectList = true;
-					} 
-					else if(projectCurrent.getID() == null || projectCurrent.getID().trim().isEmpty()){
-						doneResourceProjectList = true;
-					}
-					else {
-
-						if(projectCurrent.getID().equals(project.getID()))
-						{
-								System.out.println(resource.getRole());
-						}  // if
-						
-						lineCheck(2);
-
-					}
-					
-
-				} // while
-				doneResourceProjectList = false;
-			}	
-			
-		}//while
 	}
 	
 	/**
@@ -269,9 +224,6 @@ public class Displays {
 	 * @param resource
 	 */
 	public void displayProjectsPreviouslyAssignedToResource(Resource resource, ProjectList projectList) {
-
-		boolean done;
-		Project project;
 
 		System.out.println("\nProjects previously assigned to : "
 				+ resource.getFirstName() + " " + resource.getLastName() + " "
@@ -282,8 +234,9 @@ public class Displays {
 		lineCheck(1);
 
 		resource.getPreviouslyAssignedProjectList().goToFrontOfList();
-		done = false;
-
+		boolean done = false;
+		Project project;
+		
 		while (!done) {
 
 			project = resource.getPreviouslyAssignedProjectList().getNextProject();
