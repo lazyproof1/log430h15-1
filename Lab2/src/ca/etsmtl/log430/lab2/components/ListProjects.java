@@ -1,10 +1,9 @@
-package ca.etsmtl.log430.lab2.sharedData;
+package ca.etsmtl.log430.lab2.components;
 
 import java.util.Observable;
 
 import ca.etsmtl.log430.common.Displays;
-import ca.etsmtl.log430.lab2.CommonData;
-import ca.etsmtl.log430.lab2.Communication;
+import ca.etsmtl.log430.lab2.sharedData.CommonData;
 
 /**
  * Upon notification, lists the projects that were read into the vector stored in
@@ -41,7 +40,7 @@ public class ListProjects extends Communication {
 	 * to see if the NotificationNumber is equal to this thread's
 	 * RegistrationNumber. If they are, then we execute.
 	 * 
-	 * @see ca.etsmtl.log430.lab2.Communication#update(java.util.Observable,
+	 * @see ca.etsmtl.log430.lab2.components.Communication#update(java.util.Observable,
 	 *      java.lang.Object)
 	 */
 	public void update(Observable thing, Object notificationNumber) {

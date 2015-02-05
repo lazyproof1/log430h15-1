@@ -240,4 +240,49 @@ public class Displays {
 
 	}
 
+	/**
+	 * Lists the projects previously assigned to a resource.
+	 * 
+	 * @param resource
+	 */
+	public void displayProjectsPreviouslyAssignedToResource(Resource resource, ProjectList projectList) {
+
+		System.out.println("\nProjects previously assigned to : "
+				+ resource.getFirstName() + " " + resource.getLastName() + " "
+				+ resource.getID());
+		lineCheck(2);
+		System.out
+				.println("========================================================= ");
+		lineCheck(1);
+
+		resource.getPreviouslyAssignedProjectList().goToFrontOfList();
+		boolean done = false;
+		Project project;
+		
+		while (!done) {
+
+			project = resource.getPreviouslyAssignedProjectList().getNextProject();
+
+			if (project == null) {
+				done = true;
+			} 
+			else if(project.getID() == null || project.getID().trim().isEmpty()){
+				done = true;
+			}
+			else {
+				Project completeProject = projectList.findProjectByID(project.getID());
+				if(completeProject != null){
+					displayProject(completeProject);
+				}
+				else{
+					System.out.println("Project "+project.getID()+" not found in the project list");;	
+				}
+				lineCheck(2);
+
+			} // if
+
+		} // while
+
+	}
+
 } // Display
