@@ -1,6 +1,6 @@
-package ca.etsmtl.log430.common;
+package ca.etsmtl.log430.lab2.common;
 
-import ca.etsmtl.log430.common.Resource;
+import ca.etsmtl.log430.lab2.common.Resource;
 
 /**
  * This class is used by various other classes that need to keep a list of

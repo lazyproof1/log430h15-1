@@ -1,4 +1,7 @@
-package ca.etsmtl.log430.common;
+package ca.etsmtl.log430.lab2.common;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -34,6 +37,13 @@ package ca.etsmtl.log430.common;
 public class Resource {
 
 	/**
+	 * Project priority percentage values
+	 */
+	public static final int HIGH 	= 100;
+	public static final int MED 	= 50;
+	public static final int LOW 	= 25;
+	
+	/**
 	 * Resource's last name
 	 */
 	private String lastName;
@@ -63,16 +73,87 @@ public class Resource {
 	 */
 	private ProjectList projectsAssignedList = new ProjectList();
 
-	/**
+	/**************************************************************************
 	 * Assigns a project to a resource.
 	 * 
-	 * @param project
-	 */
-	public void assignProject(Project project) {
+	 * @param project1
+	 * @throws Exception 
+	 **************************************************************************/
+	public void assignProject(Project project1) throws Exception {
+		
+		// Specify date format in order to parse project date information
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate1 = formatter.parse(project1.getStartDate());
+		Date endDate1 = formatter.parse(project1.getEndDate());
+		
+		// Start with the first item in project list
+		getProjectsAssigned().goToFrontOfList();
+		
+		// Detect project's priority value
+		int newResourceUsage = mapPriority(project1.getPriority().charAt(0));
+		
+		// Variable for project to compare
+		Project project2;
+		
+		do {
 
-		getProjectsAssigned().addProject(project);
+			// Assign projects to compare
+			project2 = getProjectsAssigned().getNextProject();
 
-	}
+			if(project2 != null){
+
+				// Check if the new project is inside the time lap
+				Date startDate2 = formatter.parse(project2.getStartDate());
+				Date endDate2 = formatter.parse(project2.getEndDate());
+				
+				//If inside the time lap
+				if( startDate1.before(endDate2) && endDate1.after(startDate2) ){
+					
+					//Calculate the resourceUsage to see if they all can fit together
+					newResourceUsage +=  mapPriority(project2.getPriority().charAt(0));
+
+				     //Check if the priority will go over 100%
+					if(newResourceUsage > HIGH){
+						throw new Exception(	
+								"\n\n *** Project " + 
+								project1.getID() + 
+								" not assigned since it is overlapping with " +
+								project2.getID() +
+								": resource usage will go over 100% ***");
+					} // if
+					
+				} // if
+				
+			} // if
+			
+		} while(project2 != null); // do while
+		
+		getProjectsAssigned().addProject(project1);
+		
+	} // assignProject
+	
+	/**************************************************************************
+	 * Check priority character and returns corresponding priority value.
+	 * 
+	 * @param letter 	Priority character
+	 * @return			Value of character
+	 **************************************************************************/
+	public int mapPriority(char letter) {
+		
+		// Check character
+		switch (letter){
+			case 'H':
+				return HIGH;
+			case 'M':
+				return MED;
+			case 'L':
+				return LOW;
+			default:
+				// For everything else, return 0
+				return 0;
+		} // switch
+			
+	} // mapPriority
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;

@@ -1,4 +1,5 @@
-package ca.etsmtl.log430.common;
+package ca.etsmtl.log430.lab2.common;
+
 
 
 /**

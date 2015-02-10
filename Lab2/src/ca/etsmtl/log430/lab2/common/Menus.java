@@ -1,4 +1,6 @@
-package ca.etsmtl.log430.common;
+package ca.etsmtl.log430.lab2.common;
+
+
 
 
 /**
@@ -56,11 +58,11 @@ public class Menus {
 			userChoice = terminal.keyboardReadChar();
 
 			if ((userChoice != 'X') && (userChoice != 'x')
-					&& (userChoice < '1') && (userChoice != '2')
-					&& (userChoice != '3') && (userChoice < '4')
-					&& (userChoice != '5')) {
+					&& (userChoice != '1') && (userChoice != '2')
+					&& (userChoice != '3') && (userChoice != '4')
+					&& (userChoice != '5') && (userChoice != '6')) {
 
-				System.out.print("\n\n*** Invalid Choice:: " + userChoice
+				System.out.print("\n\n*** Invalid Choice: " + userChoice
 						+ " ***");
 
 			} else {

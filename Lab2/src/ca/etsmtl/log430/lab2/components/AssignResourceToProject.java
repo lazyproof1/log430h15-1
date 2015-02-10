@@ -2,9 +2,9 @@ package ca.etsmtl.log430.lab2.components;
 
 import java.util.Observable;
 
-import ca.etsmtl.log430.common.Menus;
-import ca.etsmtl.log430.common.Project;
-import ca.etsmtl.log430.common.Resource;
+import ca.etsmtl.log430.lab2.common.Menus;
+import ca.etsmtl.log430.lab2.common.Project;
+import ca.etsmtl.log430.lab2.common.Resource;
 import ca.etsmtl.log430.lab2.sharedData.CommonData;
 
 /**
@@ -74,8 +74,16 @@ public class AssignResourceToProject extends Communication
 					 * If the selected project and resource exist, then complete
 					 * the assignment process.
 					 */
-					myProject.assignResource(myResource);
-					myResource.assignProject(myProject);
+					try {
+						
+						// Verify date overlap + resource overloading
+
+						myResource.assignProject(myProject);
+						myProject.assignResource(myResource);
+						
+					} catch (Exception e){
+						System.out.println(e.getMessage());
+					}
 				} else {
 					System.out.println("\n\n *** Project not found ***");
 				} 
