@@ -36,4 +36,4 @@
  * @author Roger Champagne - ETS - 2002-2013
  * @version 2013-Oct-06
  */
-package ca.etsmtl.log430.lab2.bus;
+package ca.etsmtl.log430.lab2;

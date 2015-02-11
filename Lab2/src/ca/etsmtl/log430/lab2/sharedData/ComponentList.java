@@ -1,6 +1,7 @@
-package ca.etsmtl.log430.lab2.components;
+package ca.etsmtl.log430.lab2.sharedData;
 
 import ca.etsmtl.log430.common.List;
+import ca.etsmtl.log430.lab2.bus.Communication;
 
 
 

@@ -1,7 +1,7 @@
-package ca.etsmtl.log430.lab2.bus;
+package ca.etsmtl.log430.lab2.components;
 
 import ca.etsmtl.log430.common.Menus;
-import ca.etsmtl.log430.lab2.components.Communication;
+import ca.etsmtl.log430.lab2.bus.Communication;
 
 /**
  * Acts as the system executive. It provides the primary user interface.

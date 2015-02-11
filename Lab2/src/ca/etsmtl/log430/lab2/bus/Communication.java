@@ -1,4 +1,4 @@
-package ca.etsmtl.log430.lab2.components;
+package ca.etsmtl.log430.lab2.bus;
 
 import java.util.Observable;
 import java.util.Observer;

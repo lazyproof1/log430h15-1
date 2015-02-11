@@ -1,6 +1,7 @@
-package ca.etsmtl.log430.lab2.bus;
+package ca.etsmtl.log430.lab2;
 
 import ca.etsmtl.log430.lab2.components.AssignResourceToProject;
+import ca.etsmtl.log430.lab2.components.Executive;
 import ca.etsmtl.log430.lab2.components.ListProjects;
 import ca.etsmtl.log430.lab2.components.ListProjectsAssignedToResource;
 import ca.etsmtl.log430.lab2.components.ListProjectsPreviouslyAssignedToResource;

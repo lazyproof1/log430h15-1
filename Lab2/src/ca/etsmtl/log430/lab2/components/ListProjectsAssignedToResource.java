@@ -5,6 +5,7 @@ import java.util.Observable;
 import ca.etsmtl.log430.common.Displays;
 import ca.etsmtl.log430.common.Menus;
 import ca.etsmtl.log430.common.Resource;
+import ca.etsmtl.log430.lab2.bus.Communication;
 import ca.etsmtl.log430.lab2.sharedData.CommonData;
 
 /**
@@ -46,7 +47,7 @@ public class ListProjectsAssignedToResource extends Communication {
 	 * check to see if the NotificationNumber is equal to this thread's
 	 * RegistrationNumber. If it is, then we execute.
 	 * 
-	 * @see ca.etsmtl.log430.lab2.components.Communication#update(java.util.Observable,
+	 * @see ca.etsmtl.log430.lab2.bus.Communication#update(java.util.Observable,
 	 *      java.lang.Object)
 	 */
 	public void update(Observable thing, Object notificationNumber) {
