@@ -2,7 +2,7 @@ package ca.etsmtl.log430.lab2.components;
 
 import java.util.Observable;
 
-import ca.etsmtl.log430.lab2.common.Displays;
+import ca.etsmtl.log430.common.Displays;
 import ca.etsmtl.log430.lab2.sharedData.CommonData;
 
 /**

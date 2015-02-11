@@ -1,7 +1,7 @@
 package ca.etsmtl.log430.lab2.sharedData;
 
-import ca.etsmtl.log430.lab2.common.ProjectReader;
-import ca.etsmtl.log430.lab2.common.ResourceReader;
+import ca.etsmtl.log430.common.ProjectReader;
+import ca.etsmtl.log430.common.ResourceReader;
 import ca.etsmtl.log430.lab2.components.Communication;
 import ca.etsmtl.log430.lab2.components.ComponentList;
 

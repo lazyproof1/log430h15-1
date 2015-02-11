@@ -1,4 +1,4 @@
-package ca.etsmtl.log430.lab2.common;
+package ca.etsmtl.log430.common;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

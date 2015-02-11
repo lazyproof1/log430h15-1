@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.etsmtl.log430.lab2.common.Project;
-import ca.etsmtl.log430.lab2.common.ProjectList;
-import ca.etsmtl.log430.lab2.common.Resource;
-import ca.etsmtl.log430.lab2.common.ResourceList;
-import ca.etsmtl.log430.lab2.common.ProjectReader;
-import ca.etsmtl.log430.lab2.common.ResourceReader;
+import ca.etsmtl.log430.common.Project;
+import ca.etsmtl.log430.common.ProjectList;
+import ca.etsmtl.log430.common.ProjectReader;
+import ca.etsmtl.log430.common.Resource;
+import ca.etsmtl.log430.common.ResourceList;
+import ca.etsmtl.log430.common.ResourceReader;
 
 import java.util.Random;
 

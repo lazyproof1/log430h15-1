@@ -1,6 +1,6 @@
 package ca.etsmtl.log430.lab2.bus;
 
-import ca.etsmtl.log430.lab2.common.Menus;
+import ca.etsmtl.log430.common.Menus;
 import ca.etsmtl.log430.lab2.components.Communication;
 
 /**

@@ -1,6 +1,6 @@
 package ca.etsmtl.log430.lab2.components;
 
-import ca.etsmtl.log430.lab2.common.List;
+import ca.etsmtl.log430.common.List;
 
 
 

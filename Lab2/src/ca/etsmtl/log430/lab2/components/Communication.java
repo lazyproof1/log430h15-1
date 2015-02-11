@@ -35,12 +35,12 @@ public class Communication extends Observable implements Observer {
 	/**
 	 * Registration number for the Object
 	 */
-	protected Integer registrationNumber;
+	public Integer registrationNumber;
 
 	/**
 	 * Name of this component
 	 */
-	protected String componentName;
+	public String componentName;
 
 	/**
 	 * Provides access to system data

@@ -1,7 +1,7 @@
-package ca.etsmtl.log430.lab2.common;
+package ca.etsmtl.log430.common;
 
-import ca.etsmtl.log430.lab2.common.Resource;
-import ca.etsmtl.log430.lab2.common.ResourceList;
+import ca.etsmtl.log430.common.Resource;
+import ca.etsmtl.log430.common.ResourceList;
 
 /**
  * Reads from the InputFile and instantiates the Resource objects in the system.

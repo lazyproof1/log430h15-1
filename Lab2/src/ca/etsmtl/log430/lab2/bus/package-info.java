@@ -21,10 +21,10 @@
  * and dispatches commands at the user's request. When the program is started,
  * the resource objects are initialized from a file (<tt>resources.txt</tt>).
  * The format of this file is listed in the
- * {@link ca.etsmtl.log430.lab2.common.ResourceReader ResourceReader} class header.
+ * {@link ca.etsmtl.log430.common.ResourceReader ResourceReader} class header.
  * The project objects are initialized from another file (<tt>projects.txt</tt>).
  * The format of this file is listed in the
- * {@link ca.etsmtl.log430.lab2.common.ProjectReader ProjectReader} class header.<br><br>
+ * {@link ca.etsmtl.log430.common.ProjectReader ProjectReader} class header.<br><br>
  * 
  * <b>Running the program:</b><br><br>
  * 
