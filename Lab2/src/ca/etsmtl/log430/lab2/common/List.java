@@ -72,7 +72,7 @@ public class List {
 	/**
 	 * Sets VectorIndex back to zero, thereby pointing at the front of the list.
 	 */
-	protected void goToFrontOfList() {
+	public void goToFrontOfList() {
 		vectorIndex = 0;
 	}
 }
