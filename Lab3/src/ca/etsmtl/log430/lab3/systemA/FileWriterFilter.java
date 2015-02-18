@@ -32,7 +32,6 @@ public class FileWriterFilter extends Thread {
 	// Declarations
 
 	String outputFileName;
-	String nonSelectedProjectsOutputFileName;
 
 	// Maximum number of lines of text to be sorted
 	int maxBufferSize = 100;
@@ -42,14 +41,13 @@ public class FileWriterFilter extends Thread {
 
 	public FileWriterFilter(String outputFileName, PipedWriter inputPipe) {
 		this.outputFileName = outputFileName;
-		this.nonSelectedProjectsOutputFileName = outputFileName+"_2";
 
 		try {
 			// Connect inputPipe to upstream filter
 			this.inputPipe.connect(inputPipe);
 			System.out.println("FileWriterFilter:: connected to upstream filter.");
 		} catch (Exception Error) {
-			System.out.println("FileWriterFilter:: Error connecting input pipe.");
+			System.err.println("FileWriterFilter:: Error connecting input pipe.");
 		} // catch
 
 	} // Constructor
@@ -83,7 +81,7 @@ public class FileWriterFilter extends Thread {
 				System.out.println("FileWriterFilter:: Created directory: "
 						+ directory + ".");
 			} catch (SecurityException Error) {
-				System.out.println("FileWriterFilter:: Unable to create directory: "
+				System.err.println("FileWriterFilter:: Unable to create directory: "
 						+ directory + ".");
 			} // try/catch
 		} // if
@@ -98,7 +96,7 @@ public class FileWriterFilter extends Thread {
 		try {
 			bout = new BufferedWriter(new FileWriter(fileObject));
 		} catch (IOException IOError) {
-			System.out.println("FileWriterFilter:: Buffered Writer Creation Error.");
+			System.err.println("FileWriterFilter:: Buffered Writer Creation Error.");
 		} // try/catch
 
 		// Create a temporary String array of a big size (for sorting)
@@ -135,7 +133,7 @@ public class FileWriterFilter extends Thread {
 						try {
 							inputPipe.close();
 						} catch (Exception Error) {
-							System.out
+							System.err
 									.println("FileWriterFilter:: Error closing input pipe.");
 						} // try/catch
 					} else {
@@ -164,7 +162,7 @@ public class FileWriterFilter extends Thread {
 		} // try
 
 		catch (Exception error) {
-			System.out.println("FileWriterFilter:: Interrupted.");
+			System.err.println("FileWriterFilter:: Interrupted.");
 		} // catch
 
 		// At this point, we have all lines of text in tmpArray.
@@ -179,7 +177,7 @@ public class FileWriterFilter extends Thread {
 				bout.newLine();
 			} // for
 		} catch (Exception IOError) {
-			System.out.println("FileWriterFilter:: Write Error.");
+			System.err.println("FileWriterFilter:: Write Error.");
 		} // try/catch
 
 		// Close the output file
@@ -188,7 +186,7 @@ public class FileWriterFilter extends Thread {
 					+ fileObject.getAbsolutePath() + ".");
 			bout.close();
 		} catch (Exception Error) {
-			System.out.println("FileWriterFilter:: Error closing output file.");
+			System.err.println("FileWriterFilter:: Error closing output file.");
 		} // try/catch
 
 	} // run

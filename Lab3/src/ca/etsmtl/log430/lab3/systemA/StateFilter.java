@@ -62,7 +62,7 @@ public class StateFilter extends Thread {
 
 		} catch (Exception Error) {
 
-			System.out.println("StateFilter " + severity
+			System.err.println("StateFilter " + severity
 					+ ":: Error connecting to other filters.");
 
 		} // try/catch
@@ -126,7 +126,7 @@ public class StateFilter extends Thread {
 
 		} catch (Exception error) {
 
-			System.out.println("StateFilter::" + severity
+			System.err.println("StateFilter::" + severity
 					+ " Interrupted.");
 
 		} // try/catch
@@ -143,7 +143,7 @@ public class StateFilter extends Thread {
 
 		} catch (Exception error) {
 
-			System.out.println("StateFilter " + severity
+			System.err.println("StateFilter " + severity
 					+ ":: Error closing pipes.");
 
 		} // try/catch
