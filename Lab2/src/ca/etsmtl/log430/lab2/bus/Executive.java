@@ -1,7 +1,6 @@
-package ca.etsmtl.log430.lab2.components;
+package ca.etsmtl.log430.lab2.bus;
 
 import ca.etsmtl.log430.common.Menus;
-import ca.etsmtl.log430.lab2.bus.Communication;
 
 /**
  * Acts as the system executive. It provides the primary user interface.
@@ -60,6 +59,7 @@ public class Executive extends Communication {
 		addToReceiverList("ListResourcesAssignedToProjectComponent");
 		addToReceiverList("ListProjectsPreviouslyAssignedToResourceComponent");
 		addToReceiverList("AssignResourceToProject");
+		addToReceiverList("ListRolesAssignedToProject");
 
 		while (!done) {
 			userChoice = menu.mainMenu();
@@ -89,6 +89,10 @@ public class Executive extends Communication {
 				signalReceivers("ListProjectsPreviouslyAssignedToResourceComponent");
 				break;
 
+			case '7':
+				signalReceivers("ListRolesAssignedToProject");
+				break;
+				
 			case 'X':
 			case 'x':
 				done = true;

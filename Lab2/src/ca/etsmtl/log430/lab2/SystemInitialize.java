@@ -1,12 +1,13 @@
 package ca.etsmtl.log430.lab2;
 
+import ca.etsmtl.log430.lab2.bus.Executive;
 import ca.etsmtl.log430.lab2.components.AssignResourceToProject;
-import ca.etsmtl.log430.lab2.components.Executive;
 import ca.etsmtl.log430.lab2.components.ListProjects;
 import ca.etsmtl.log430.lab2.components.ListProjectsAssignedToResource;
 import ca.etsmtl.log430.lab2.components.ListProjectsPreviouslyAssignedToResource;
 import ca.etsmtl.log430.lab2.components.ListResources;
 import ca.etsmtl.log430.lab2.components.ListResourcesAssignedToProject;
+import ca.etsmtl.log430.lab2.components.ListRolesAssignedToProject;
 
 /**
  * Initializes the system. First each component is instantiated. This is where
@@ -56,8 +57,10 @@ public class SystemInitialize {
 				"ListResourcesAssignedToProjectComponent");
 		new ListProjectsPreviouslyAssignedToResource(new Integer(105),
 				"ListProjectsPreviouslyAssignedToResourceComponent");
+		new ListRolesAssignedToProject(new Integer(106),
+				"ListRolesAssignedToProject");
 		
-		Executive executiveComponent = new Executive(new Integer(106),
+		Executive executiveComponent = new Executive(new Integer(107),
 				"ExecutiveComponent");
 
 		// Start the executive

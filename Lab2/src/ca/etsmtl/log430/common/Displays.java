@@ -285,5 +285,94 @@ public class Displays {
 		} // while
 
 	}
+	
+	public void displayRoleAssignedToAProject(Project project, ResourceList resourceList){
+		int ana = 0;
+		int des = 0;
+		int tst = 0;
+		int prg = 0;
+		
+		
+		resourceList.goToFrontOfList();
+		Resource resource;
+		boolean done = false;
+
+		while (!done) {
+
+			resource = resourceList.getNextResource();
+
+			if (resource != null) {
+				
+				if(resource.getPreviouslyAssignedProjectList().findProject(project)){
+					switch(resource.getRole()){
+					case "ANA" :
+						ana++;
+						break;
+					case "DES" :
+						des++;
+						break;
+					case "PRG" :
+						prg++;
+						break;
+					case "TST" :
+						tst++;
+						break;
+					}
+				}
+			} else {	
+				done = true;
+			} // if
+
+		} // while)
+		System.out.println("\nRoles assigned previously to the project : " + project.getID());
+		lineCheck(2);
+		System.out
+				.println("========================================================= ");
+		System.out.println("ANA : " + ana +
+							"\nDES : " + des +
+							"\nPRG : " + prg +
+							"\nTST : "+ tst);
+		
+		resourceList.goToFrontOfList();
+		done = false;
+		while (!done) {
+
+			resource = resourceList.getNextResource();
+
+			if (resource != null) {
+				
+				if(resource.getProjectsAssigned().findProject(project)){
+					switch(resource.getRole()){
+					case "ANA" :
+						ana++;
+						break;
+					case "DES" :
+						des++;
+						break;
+					case "PRG" :
+						prg++;
+						break;
+					case "TST" :
+						tst++;
+						break;
+					}
+				}
+			} else {	
+				done = true;
+			} // if
+
+		} // while)
+		
+		System.out.println("\nRoles assigned currently to the project : " + project.getID());
+		lineCheck(2);
+		System.out
+				.println("========================================================= ");
+		System.out.println("ANA : " + ana +
+							"\nDES : " + des +
+							"\nPRG : " + prg +
+							"\nTST : "+ tst);
+		
+	
+	}
 
 } // Display
