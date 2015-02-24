@@ -154,6 +154,7 @@ public class FileWriterFilter extends Thread {
 					// Add LineOfText1 to temporary string array,
 					// increment arrayindex and reset Write1 to false.
 					write1 = false;
+					
 					tmpArray[count] = lineOfText1;
 					++count;
 					lineOfText1 = "";

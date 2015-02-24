@@ -29,41 +29,35 @@ import java.io.PipedWriter;
  * close pipes
  * </pre>
  *
- * @author A.J. Lattanze
+ * @author ak34270
  * @version 1.0
  */
 
-public class StateFilter extends Thread {
+public class ProgressCRIFilter extends Thread {
 
 	// Declarations
 
 	boolean done;
 
-	String severity;
 	PipedReader inputPipe = new PipedReader();
 	PipedWriter outputPipe = new PipedWriter();
 
-	public StateFilter(String severity, PipedWriter inputPipe,
+	public ProgressCRIFilter( PipedWriter inputPipe,
 			PipedWriter outputPipe) {
-
-		this.severity = severity;
 
 		try {
 
 			// Connect inputPipe
 			this.inputPipe.connect(inputPipe);
-			System.out.println("StateFilter " + severity
-					+ ":: connected to upstream filter.");
+			System.out.println("ProgressCRIFilter :: connected to upstream filter.");
 
 			// Connect outputPipe
 			this.outputPipe = outputPipe;
-			System.out.println("StateFilter " + severity
-					+ ":: connected to downstream filter.");
+			System.out.println("ProgressCRIFilter :: connected to downstream filter.");
 
 		} catch (Exception Error) {
 
-			System.out.println("StateFilter " + severity
-					+ ":: Error connecting to other filters.");
+			System.out.println("ProgressCRIFilter :: Error connecting to other filters.");
 
 		} // try/catch
 
@@ -79,6 +73,8 @@ public class StateFilter extends Thread {
 		String lineOfText = "";
 		// string is required to look for the keyword
 		int integerCharacter; // the integer value read from the pipe
+		int progressValue = 0;
+		boolean toFilter = false;
 
 		try {
 
@@ -97,20 +93,44 @@ public class StateFilter extends Thread {
 
 					if (integerCharacter == '\n') { // end of line
 
-						System.out.println("StateFilter " + severity
-								+ ":: received: " + lineOfText + ".");
+						System.out.println("ProgressCRIFilter:: received: " 
+								+ lineOfText + ".");
 
-						if (lineOfText.indexOf(severity) != -1) {
+						// Set variable to initial value
+						progressValue = 0;
+						toFilter = true;
 
-							System.out.println("StateFilter "
-									+ severity + ":: sending: "
+						// Check the progress value
+						try
+						{
+							progressValue = Integer.parseInt(lineOfText.substring(22, 24));
+						} 
+						catch (Exception e) 
+						{
+							System.out.println("Error, value not found");
+						}
+
+						// Check if severity is RIS and progress value = 25
+						if ( lineOfText.indexOf(" RIS ") != -1  && progressValue == 25 ) 
+						{
+							toFilter = false;
+						} 
+						// Check if severity other than RIS and progress value > 75
+						else if ( lineOfText.indexOf(" RIS ") == -1 && progressValue > 75 )
+						{
+							toFilter = false;
+						}
+						
+						// If the form is correct, don't filter
+						if(!toFilter)
+						{
+							System.out.println("ProgressCRIFilter:: sending: "
 									+ lineOfText + " to output pipe.");
 							lineOfText += new String(characterValue);
 							outputPipe
 									.write(lineOfText, 0, lineOfText.length());
 							outputPipe.flush();
-
-						} // if
+						}
 
 						lineOfText = "";
 
@@ -126,25 +146,21 @@ public class StateFilter extends Thread {
 
 		} catch (Exception error) {
 
-			System.out.println("StateFilter::" + severity
-					+ " Interrupted.");
+			System.out.println("ProgressCRIFilter:: Interrupted.");
 
 		} // try/catch
 
 		try {
 
 			inputPipe.close();
-			System.out.println("StateFilter " + severity
-					+ ":: input pipe closed.");
+			System.out.println("ProgressCRIFilter:: input pipe closed.");
 
 			outputPipe.close();
-			System.out.println("StateFilter " + severity
-					+ ":: output pipe closed.");
+			System.out.println("ProgressCRIFilter:: output pipe closed.");
 
 		} catch (Exception error) {
 
-			System.out.println("StateFilter " + severity
-					+ ":: Error closing pipes.");
+			System.out.println("ProgressCRIFilter:: Error closing pipes.");
 
 		} // try/catch
 

@@ -93,18 +93,7 @@ public class StatusFilter extends Thread {
 
 						System.out.println("StatusFilter:: received: " + lineOfText + ".");
 
-						int value = 0;
-						try
-						{
-							// Check the progression value
-							value = Integer.parseInt(lineOfText.substring(22, 24));
-						} 
-						catch (Exception e) 
-						{
-							System.out.println("FUUUUUUUUUUUUUUUUUUUUUU");
-						}
-						
-						if (lineOfText.indexOf(" REG ") != -1 && value <= 50) {
+						if (lineOfText.indexOf(" REG ") != -1) {
 
 							System.out.println("StatusFilter:: sending: "
 									+ lineOfText + " to output pipe 1 (REG).");
@@ -112,7 +101,7 @@ public class StatusFilter extends Thread {
 							outputPipe1
 									.write(lineOfText, 0, lineOfText.length());
 							outputPipe1.flush();
-						} else if(lineOfText.indexOf(" CRI ") != -1 && (value == 25 || value >= 75)) {
+						} else if(lineOfText.indexOf(" CRI ") != -1) {
 
 							System.out.println("StatusFilter:: sending: "
 									+ lineOfText + " to output pipe 2 (CRI).");

@@ -53,28 +53,30 @@ public class SystemInitialize {
 					.println("\njava SystemInitialize <fichier d'entree> <fichier de sortie>");
 
 		} else {
+			
 			// These are the declarations for the pipes.
-			PipedWriter pipe01 = new PipedWriter();
-			PipedWriter pipe02 = new PipedWriter();
-			PipedWriter pipe03 = new PipedWriter();
-			PipedWriter pipe04 = new PipedWriter();
-			PipedWriter pipe05 = new PipedWriter();
-			PipedWriter pipe06 = new PipedWriter();
-
+			PipedWriter pipeRead 		= new PipedWriter();
+			PipedWriter pipeREGBegin 	= new PipedWriter();
+			PipedWriter pipeCRIBegin 	= new PipedWriter();
+			PipedWriter pipeREGEnd 		= new PipedWriter();
+			PipedWriter pipeCRIEnd 		= new PipedWriter();
+			PipedWriter pipeMerged 		= new PipedWriter();
+			
 			// Instantiate Filter Threads
-			Thread fileReaderFilter = new FileReaderFilter(argv[0], pipe01);
-			Thread statusFilter = new StatusFilter(pipe01, pipe02, pipe03);
-			Thread stateFilter1 = new StateFilter("RIS", pipe02, pipe04);
-			Thread stateFilter2 = new StateFilter("DIF", pipe02, pipe04);
-//			Thread stateFilter2 = new StateFilter("DIF", pipe03, pipe05);
-			Thread mergeFilter = new MergeFilter(pipe04, pipe05, pipe06);
-			Thread fileWriterFilter = new FileWriterFilter(argv[1], pipe06);
-
+			Thread fileReaderFilter 	= new FileReaderFilter(argv[0], pipeRead);
+			Thread statusFilter 		= new StatusFilter(pipeRead, pipeREGBegin, pipeCRIBegin);
+			
+			Thread progressFilterREG 	= new ProgressREGFilter(pipeREGBegin, pipeREGEnd);
+			Thread progressFilterCRI 	= new ProgressCRIFilter(pipeCRIBegin, pipeCRIEnd);
+			
+			Thread mergeFilter 			= new MergeFilter(pipeREGEnd, pipeCRIEnd, pipeMerged);
+			Thread fileWriterFilter 	= new FileWriterFilter(argv[1], pipeMerged);
+			
 			// Start the threads
 			fileReaderFilter.start();
 			statusFilter.start();
-			stateFilter1.start();
-			stateFilter2.start();
+			progressFilterREG.start();
+			progressFilterCRI.start();
 			mergeFilter.start();
 			fileWriterFilter.start();
 			
