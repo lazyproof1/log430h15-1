@@ -4,9 +4,34 @@ import java.io.PipedReader;
 import java.io.PipedWriter;
 import java.util.ArrayList;
 
+/**
+* This class is intended to be a filter that will collect the streams from 
+* the input pipes and categorize selected and non selected projects to the 
+* output pipes .<br><br>
+* 
+* Pseudo Code:
+* <pre>
+* connect to input pipe 1
+* connect to input pipe 2
+* connect to output pipe 1
+* connect to output pipe 2
+*
+* while not done
+*		read char1 from input pipe
+*		read char2 from input pipe
+*		write string to output pipe 1
+*		write string to output pipe 2
+* end while
+*
+* close pipes
+* close file
+* </pre>
+* 
+* @version 1.0
+*/
 public class ProjectDifferentiatorFilter extends Thread {
+	
 	// Declarations
-
 	boolean done;
 
 	PipedReader allProjectsInputPipe = new PipedReader();
@@ -17,7 +42,6 @@ public class ProjectDifferentiatorFilter extends Thread {
 	
 	public ProjectDifferentiatorFilter(PipedWriter allProjectsInputPipe ,PipedWriter selectedProjectsInputPipe,
 			PipedWriter selectedProjectsOutputPipe, PipedWriter nonSelectedProjectsOutputPipe) {
-
 
 		try {
 
@@ -78,11 +102,9 @@ public class ProjectDifferentiatorFilter extends Thread {
 					if (integerCharacter1 == '\n') { // end of line
 
 						System.out.println("ProjectDifferentiatorFilter :: received: " + lineOfText1 + ".");
-
 						System.out.println("ProjectDifferentiatorFilter :: sending: "
 								+ lineOfText1 + " to output pipe.");
 						lineOfText1 += new String(characterValue1);
-						
 						allProjectList.add(lineOfText1);
 						
 						lineOfText1 = "";
@@ -96,11 +118,9 @@ public class ProjectDifferentiatorFilter extends Thread {
 					if (integerCharacter2 == '\n') { // end of line
 
 						System.out.println("ProjectDifferentiatorFilter :: received: " + lineOfText2 + ".");
-
 						System.out.println("ProjectDifferentiatorFilter :: sending: "
 								+ lineOfText2 + " to output pipe.");
 						lineOfText2 += new String(characterValue2);
-						
 						selectedProjectList.add(lineOfText2);
 						
 						lineOfText2 = "";

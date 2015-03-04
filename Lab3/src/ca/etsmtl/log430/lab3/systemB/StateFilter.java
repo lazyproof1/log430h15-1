@@ -7,7 +7,7 @@ import java.io.PipedWriter;
  * This class is intended to be a filter that will key on a particular state
  * provided at instantiation.  Note that the stream has to be buffered so that
  * it can be checked to see if the specified severity appears on the stream.
- * If this string appears in the input stream, teh whole line is passed to the
+ * If this string appears in the input stream, the whole line is passed to the
  * output stream.
  * 
  * <pre>
@@ -29,35 +29,41 @@ import java.io.PipedWriter;
  * close pipes
  * </pre>
  *
- * @author ak34270
+ * @author A.J. Lattanze
  * @version 1.0
  */
 
-public class ProgressCRIFilter extends Thread {
+public class StateFilter extends Thread {
 
 	// Declarations
 
 	boolean done;
 
+	String severity;
 	PipedReader inputPipe = new PipedReader();
 	PipedWriter outputPipe = new PipedWriter();
 
-	public ProgressCRIFilter( PipedWriter inputPipe,
+	public StateFilter(String severity, PipedWriter inputPipe,
 			PipedWriter outputPipe) {
+
+		this.severity = severity;
 
 		try {
 
 			// Connect inputPipe
 			this.inputPipe.connect(inputPipe);
-			System.out.println("ProgressCRIFilter :: connected to upstream filter.");
+			System.out.println("StateFilter " + severity
+					+ ":: connected to upstream filter.");
 
 			// Connect outputPipe
 			this.outputPipe = outputPipe;
-			System.out.println("ProgressCRIFilter :: connected to downstream filter.");
+			System.out.println("StateFilter " + severity
+					+ ":: connected to downstream filter.");
 
 		} catch (Exception Error) {
 
-			System.out.println("ProgressCRIFilter :: Error connecting to other filters.");
+			System.err.println("StateFilter " + severity
+					+ ":: Error connecting to other filters.");
 
 		} // try/catch
 
@@ -73,8 +79,6 @@ public class ProgressCRIFilter extends Thread {
 		String lineOfText = "";
 		// string is required to look for the keyword
 		int integerCharacter; // the integer value read from the pipe
-		int progressValue = 0;
-		boolean toFilter = false;
 
 		try {
 
@@ -93,44 +97,20 @@ public class ProgressCRIFilter extends Thread {
 
 					if (integerCharacter == '\n') { // end of line
 
-						System.out.println("ProgressCRIFilter:: received: " 
-								+ lineOfText + ".");
+						System.out.println("StateFilter " + severity
+								+ ":: received: " + lineOfText + ".");
 
-						// Set variable to initial value
-						progressValue = 0;
-						toFilter = true;
+						if (lineOfText.indexOf(severity) != -1) {
 
-						// Check the progress value
-						try
-						{
-							progressValue = Integer.parseInt(lineOfText.substring(22, 24));
-						} 
-						catch (Exception e) 
-						{
-							System.out.println("Error, value not found");
-						}
-
-						// Check if severity is RIS and progress value = 25
-						if ( lineOfText.indexOf(" RIS ") != -1  && progressValue == 25 ) 
-						{
-							toFilter = false;
-						} 
-						// Check if severity other than RIS and progress value > 75
-						else if ( lineOfText.indexOf(" RIS ") == -1 && progressValue > 75 )
-						{
-							toFilter = false;
-						}
-						
-						// If the form is correct, don't filter
-						if(!toFilter)
-						{
-							System.out.println("ProgressCRIFilter:: sending: "
+							System.out.println("StateFilter "
+									+ severity + ":: sending: "
 									+ lineOfText + " to output pipe.");
 							lineOfText += new String(characterValue);
 							outputPipe
 									.write(lineOfText, 0, lineOfText.length());
 							outputPipe.flush();
-						}
+
+						} // if
 
 						lineOfText = "";
 
@@ -146,21 +126,25 @@ public class ProgressCRIFilter extends Thread {
 
 		} catch (Exception error) {
 
-			System.out.println("ProgressCRIFilter:: Interrupted.");
+			System.err.println("StateFilter::" + severity
+					+ " Interrupted.");
 
 		} // try/catch
 
 		try {
 
 			inputPipe.close();
-			System.out.println("ProgressCRIFilter:: input pipe closed.");
+			System.out.println("StateFilter " + severity
+					+ ":: input pipe closed.");
 
 			outputPipe.close();
-			System.out.println("ProgressCRIFilter:: output pipe closed.");
+			System.out.println("StateFilter " + severity
+					+ ":: output pipe closed.");
 
 		} catch (Exception error) {
 
-			System.out.println("ProgressCRIFilter:: Error closing pipes.");
+			System.err.println("StateFilter " + severity
+					+ ":: Error closing pipes.");
 
 		} // try/catch
 

@@ -5,9 +5,8 @@ import java.io.PipedWriter;
 
 /**
  * This class is intended to be a filter that will key on a particular state
- * provided at instantiation.  Note that the stream has to be buffered so that
- * it can be checked to see if the specified severity appears on the stream.
- * If this string appears in the input stream, teh whole line is passed to the
+ * provided at instantiation. 
+ * If this string does not appear in the input stream, the whole line is passed to the
  * output stream.
  * 
  * <pre>
@@ -20,7 +19,7 @@ import java.io.PipedWriter;
  *
  *		read input pipe
  *
- *		if specified severity appears on line of text
+ *		if specified severity does not appear on line of text
  *			write line of text to output pipe
  *			flush pipe
  *		end if
@@ -32,32 +31,37 @@ import java.io.PipedWriter;
  * @author ak34270
  * @version 1.0
  */
-
-public class ProgressREGFilter extends Thread {
+public class OppositeStateFilter extends Thread {
 
 	// Declarations
 
 	boolean done;
 
+	String severity;
 	PipedReader inputPipe = new PipedReader();
 	PipedWriter outputPipe = new PipedWriter();
 
-	public ProgressREGFilter( PipedWriter inputPipe,
+	public OppositeStateFilter(String severity, PipedWriter inputPipe,
 			PipedWriter outputPipe) {
+
+		this.severity = severity;
 
 		try {
 
 			// Connect inputPipe
 			this.inputPipe.connect(inputPipe);
-			System.out.println("ProgressREGFilter :: connected to upstream filter.");
+			System.out.println("OppositeStateFilter " + severity
+					+ ":: connected to upstream filter.");
 
 			// Connect outputPipe
 			this.outputPipe = outputPipe;
-			System.out.println("ProgressREGFilter :: connected to downstream filter.");
+			System.out.println("OppositeStateFilter " + severity
+					+ ":: connected to downstream filter.");
 
 		} catch (Exception Error) {
 
-			System.out.println("ProgressREGFilter :: Error connecting to other filters.");
+			System.err.println("OppositeStateFilter " + severity
+					+ ":: Error connecting to other filters.");
 
 		} // try/catch
 
@@ -73,8 +77,6 @@ public class ProgressREGFilter extends Thread {
 		String lineOfText = "";
 		// string is required to look for the keyword
 		int integerCharacter; // the integer value read from the pipe
-		int progressValue = 0;
-		boolean toFilter = false;
 
 		try {
 
@@ -93,39 +95,20 @@ public class ProgressREGFilter extends Thread {
 
 					if (integerCharacter == '\n') { // end of line
 
-						System.out.println("ProgressREGFilter:: received: " 
-								+ lineOfText + ".");
+						System.out.println("StateFilter " + severity
+								+ ":: received: " + lineOfText + ".");
 
-						// Set variable to initial value
-						progressValue = 0;
-						toFilter = true;
+						if (lineOfText.indexOf(severity) == -1) {
 
-						// Check the progress value
-						try
-						{
-							progressValue = Integer.parseInt(lineOfText.substring(22, 24));
-						} 
-						catch (Exception e) 
-						{
-							System.out.println("Error, value not found");
-						}
-
-						// Check if severity is RIS and progress value < 50
-						if ( lineOfText.indexOf(" PRO ") == -1  && progressValue < 50 ) 
-						{
-							toFilter = false;
-						} 
-						
-						// If the form is correct, don't filter
-						if(!toFilter)
-						{
-							System.out.println("ProgressREGFilter:: sending: "
+							System.out.println("OppositeStateFilter "
+									+ severity + ":: sending: "
 									+ lineOfText + " to output pipe.");
 							lineOfText += new String(characterValue);
 							outputPipe
 									.write(lineOfText, 0, lineOfText.length());
 							outputPipe.flush();
-						}
+
+						} // if
 
 						lineOfText = "";
 
@@ -141,21 +124,25 @@ public class ProgressREGFilter extends Thread {
 
 		} catch (Exception error) {
 
-			System.out.println("ProgressREGFilter:: Interrupted.");
+			System.err.println("OppositeStateFilter::" + severity
+					+ " Interrupted.");
 
 		} // try/catch
 
 		try {
 
 			inputPipe.close();
-			System.out.println("ProgressREGFilter:: input pipe closed.");
+			System.out.println("OppositeStateFilter " + severity
+					+ ":: input pipe closed.");
 
 			outputPipe.close();
-			System.out.println("ProgressREGFilter:: output pipe closed.");
+			System.out.println("OppositeStateFilter " + severity
+					+ ":: output pipe closed.");
 
 		} catch (Exception error) {
 
-			System.out.println("ProgressREGFilter:: Error closing pipes.");
+			System.err.println("OppositeStateFilter " + severity
+					+ ":: Error closing pipes.");
 
 		} // try/catch
 

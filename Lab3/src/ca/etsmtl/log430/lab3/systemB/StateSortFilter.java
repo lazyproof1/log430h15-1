@@ -1,4 +1,4 @@
-package ca.etsmtl.log430.lab3.systemA;
+package ca.etsmtl.log430.lab3.systemB;
 
 import java.io.PipedReader;
 import java.io.PipedWriter;
