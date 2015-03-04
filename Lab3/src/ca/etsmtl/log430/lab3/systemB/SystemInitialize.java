@@ -55,12 +55,12 @@ public class SystemInitialize {
 		// Let's make sure that input and output files are provided on the
 		// command line
 
-		if (argv.length != 2) {
+		if (argv.length != 3) {
 
 			System.out
 					.println("\n\nNombre incorrect de parametres d'entree. Utilisation:");
 			System.out
-					.println("\njava SystemInitialize <fichier d'entree> <fichier de sortie>");
+					.println("\njava SystemInitialize <fichier d'entree> <fichier de sortie 1> <fichier de sortie 2>");
 
 		} else {
 			
@@ -76,9 +76,9 @@ public class SystemInitialize {
 			PipedWriter pipeCriNotRis 		= new PipedWriter();
 			PipedWriter pipeCriRisEnd		= new PipedWriter();
 			PipedWriter pipeCriNotRisEnd 	= new PipedWriter();
-			PipedWriter pipeMerged 			= new PipedWriter();
-			PipedWriter pipeMergeALL 		= new PipedWriter();
-			PipedWriter pipeSortALL 		= new PipedWriter();
+			PipedWriter pipeCriMerged 		= new PipedWriter();
+			PipedWriter pipeRegSort 		= new PipedWriter();
+			PipedWriter pipeCriSort 		= new PipedWriter();
 			
 			// Instantiate Filter Threads
 			Thread fileReaderFilter 		= new FileReaderFilter(argv[0], pipeRead);
@@ -99,13 +99,15 @@ public class SystemInitialize {
 			Thread progressFilter3 			= new ProgressFilter(">=", 75, pipeCriCopy2, pipeCriNotRis);
 			Thread stateFilter3 			= new OppositeStateFilter("RIS", pipeCriNotRis, pipeCriNotRisEnd);
 
-			// Merge everything
-			Thread mergeFilter1 			= new MergeFilter(pipeRegNotProEnd, pipeCriRisEnd, pipeMerged);
-			Thread mergeFilter2 			= new MergeFilter(pipeCriNotRisEnd, pipeMerged, pipeMergeALL);
+			// Merge CRI
+			Thread mergeFilter 				= new MergeFilter(pipeCriNotRisEnd, pipeCriRisEnd, pipeCriMerged);
 			
 			// Sort and write
-			Thread stateSortFilter 			= new StateSortFilter(pipeMergeALL, pipeSortALL);
-			Thread fileWriterFilter 		= new FileWriterFilter(argv[1], pipeSortALL);
+			Thread stateSortFilter1 		= new StateSortFilter(pipeRegNotProEnd, pipeRegSort);
+			Thread stateSortFilter2 		= new StateSortFilter(pipeCriMerged, pipeCriSort);
+			
+			Thread fileWriterFilter1 		= new FileWriterFilter(argv[1], pipeRegSort);
+			Thread fileWriterFilter2 		= new FileWriterFilter(argv[2], pipeCriSort);
 			
 			// Start the threads
 			fileReaderFilter.start();
@@ -117,10 +119,11 @@ public class SystemInitialize {
 			stateFilter2.start();
 			progressFilter3.start();
 			stateFilter3.start();
-			mergeFilter1.start();
-			mergeFilter2.start();
-			stateSortFilter.start();
-			fileWriterFilter.start();
+			mergeFilter.start();
+			stateSortFilter1.start();
+			stateSortFilter2.start();
+			fileWriterFilter1.start();
+			fileWriterFilter2.start();
 			
 		}  // if
 		
