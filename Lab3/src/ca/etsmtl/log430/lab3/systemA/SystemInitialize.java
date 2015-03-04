@@ -94,8 +94,8 @@ public class SystemInitialize {
 			Thread stateSortFilter1 = new StateSortFilter(projectDifferentiatorFilterOutPipe1, stateSortFilterOutPipe1);
 			Thread stateSortFilter2 = new StateSortFilter(projectDifferentiatorFilterOutPipe2, stateSortFilterOutPipe2);
 			
-			Thread fileWriterFilter1 = new FileWriterFilter(argv[1], stateSortFilterOutPipe1);
-			Thread fileWriterFilter2 = new FileWriterFilter(argv[2], stateSortFilterOutPipe2);
+			Thread fileWriterFilter1 = new FileWriterFilter(argv[1], stateSortFilterOutPipe1); // Unselected
+			Thread fileWriterFilter2 = new FileWriterFilter(argv[2], stateSortFilterOutPipe2); // Selected
 
 			// Start the threads
 			fileReaderFilter.start();
