@@ -117,9 +117,9 @@ public class ProgressFilter extends Thread {
 						// Check all the conditions and then compare
 						if(condition.equals("==") 		&& currentProgress == requestedProgress)
 							toFilter = false;
-						else if(condition.equals(">=") 	&& currentProgress >= requestedProgress)
+						else if(condition.equals(">") 	&& currentProgress > requestedProgress)
 							toFilter = false;
-						else if(condition.equals("<=") 	&& currentProgress <= requestedProgress)
+						else if(condition.equals("<") 	&& currentProgress < requestedProgress)
 							toFilter = false;
 						
 						// If the form is correct, don't filter

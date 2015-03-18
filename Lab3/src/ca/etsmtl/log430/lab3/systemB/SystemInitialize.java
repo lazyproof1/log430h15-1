@@ -88,7 +88,7 @@ public class SystemInitialize {
 			Thread duplicateFilter 			= new DuplicateFilter(pipeCri, pipeCriCopy1, pipeCriCopy2);
 			
 			// REG - notPRO
-			Thread progressFilter1			= new ProgressFilter("<=", 50, pipeReg, pipeRegNotPro);
+			Thread progressFilter1			= new ProgressFilter("<", 50, pipeReg, pipeRegNotPro);
 			Thread stateFilter1 			= new OppositeStateFilter("PRO", pipeRegNotPro, pipeRegNotProEnd);
 
 			// CRI - RIS
@@ -96,7 +96,7 @@ public class SystemInitialize {
 			Thread stateFilter2 			= new StateFilter("RIS", pipeCriRis, pipeCriRisEnd);
 
 			// CRI - notRIS
-			Thread progressFilter3 			= new ProgressFilter(">=", 75, pipeCriCopy2, pipeCriNotRis);
+			Thread progressFilter3 			= new ProgressFilter(">", 75, pipeCriCopy2, pipeCriNotRis);
 			Thread stateFilter3 			= new OppositeStateFilter("RIS", pipeCriNotRis, pipeCriNotRisEnd);
 
 			// Merge CRI

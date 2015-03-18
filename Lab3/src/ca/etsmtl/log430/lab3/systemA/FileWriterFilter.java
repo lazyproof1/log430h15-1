@@ -152,9 +152,28 @@ public class FileWriterFilter extends Thread {
 					// Add LineOfText1 to temporary string array,
 					// increment arrayindex and reset Write1 to false.
 					write1 = false;
-					tmpArray[count] = lineOfText1;
+					
+					//Format the new output
+					String[] splittedLineOfText = lineOfText1.split(" ");
+					
+					String[] formatedLineArray = {
+							splittedLineOfText[1],
+							splittedLineOfText[5],
+							splittedLineOfText[4],
+							splittedLineOfText[0]	
+					};
+					String formattedLineOfText1 = "";
+					for (int j = 0; j < formatedLineArray.length; j++) {
+						formattedLineOfText1+=formatedLineArray[j];
+						formattedLineOfText1+=" ";
+					}
+					
+					
+					
+					tmpArray[count] = formattedLineOfText1;
 					++count;
 					lineOfText1 = "";
+					formattedLineOfText1 = "";
 				} // if
 
 			} // while (!Done1)
@@ -169,6 +188,7 @@ public class FileWriterFilter extends Thread {
 
 		// Write the string array to output file
 		try {
+
 			for (i = 0; i < count; i++) {
 				System.out.println("FileWriterFilter:: Writing: " + tmpArray[i]);
 				bout.write(tmpArray[i]);
